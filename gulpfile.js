@@ -4,10 +4,17 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var ngHtml2Js = require("gulp-ng-html2js");
 var minifyHtml = require("gulp-minify-html");
+
+var sass = require('gulp-sass');
+var minifyCss = require('gulp-minify-css');
 var css2js = require("gulp-css2js");
 
+var path = {
+  src: ['./src/*.*']
+};
+
 gulp.task('html2js', function () {
-  return gulp.src(['./src/*.html'])
+  return gulp.src(['./src/ionic-datepicker-popup.html'])
     .pipe(minifyHtml())
     .pipe(ngHtml2Js({
       moduleName: "ionic-datepicker.templates"
@@ -17,27 +24,50 @@ gulp.task('html2js', function () {
     .pipe(gulp.dest("./dist"));
 });
 
+gulp.task('scss', function () {
+  gulp.src('./src/ionic-datepicker.scss')
+    .pipe(sass())
+    .on('error', sass.logError)
+    .pipe(gulp.dest('./src/'));
+  /*.pipe(minifyCss({
+   keepSpecialComments: 0
+   }))
+   .pipe(rename({ extname: '.min.css' }))
+   .pipe(gulp.dest('./www/css/'))
+   .on('end', done);*/
+});
+
 gulp.task('css2js', function () {
-  return gulp.src("./src/*.css")
+  return gulp.src('./src/ionic-datepicker.scss')
+    .pipe(sass())
+    .pipe(minifyCss({
+      keepSpecialComments: 0
+    }))
     .pipe(css2js())
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest("./dist/"));
 });
 
 gulp.task('make-bundle', ['del', 'html2js', 'css2js'], function () {
-  return gulp.src(['dist/*', './src/*.js'])
+  return gulp.src(['dist/*.js', './src/*.js'])
     .pipe(concat('ionic-datepicker.bundle.min.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('del-temp-files', ['make-bundle'], function () {
-  del(['dist/templates.js', 'dist/ionic-datepicker.styles.js']);
+  return del(['dist/templates.js', 'dist/ionic-datepicker.styles.js']);
 });
 
 gulp.task('del', function () {
-  del(['dist/*']);
+  return del(['dist/*']);
 });
 
 gulp.task('build', ['del-temp-files']);
 
+
+gulp.task('watch', function () {
+  gulp.watch(path.src, ['build']);
+});
+
+gulp.task('default', ['watch']);
