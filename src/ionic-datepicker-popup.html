@@ -15,6 +15,12 @@
       </button>
     </div>
   </div>
+
+  <label class="item item-input">
+    <span class="input-label">Month</span>
+    <input type="month">
+  </label>
+
   <div class="">
     <div class="row">
       <div class="col week-days"
@@ -28,8 +34,8 @@
            ng-repeat="row in rows track by $index">
         <div class="col no-padding date-col"
              ng-repeat="col in cols track by $index"
-             ng-class="{'date-selected': (dayList[row + $index].style.isSelected && accessType == 'read-write')
-              , 'date-selected-light': (dayList[row + $index].style.isSelected && accessType == 'read')
+             ng-class="{'selected': (dayList[row + $index].style.isSelected && accessType == 'WRITE')
+              , 'selected-light': (dayList[row + $index].style.isSelected && accessType == 'READ')
               , 'today' : (dayList[row + $index].style.isToday)
               , 'weekend': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month)
               , 'holiday': (dayList[row + $index].style.isHoliday)

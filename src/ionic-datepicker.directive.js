@@ -20,27 +20,31 @@
         // IDE definitions
         var ERRORS = {
           INPUT_PERIOD__SINGLE_NOT_PERIOD: {
-            code: 'INPUT_PERIOD__SINGLE_NOT_PERIOD',
-            en: 'Date is not single',
-            ru: 'Должно быть не больше одной даты'
+            CODE: 'INPUT_PERIOD__SINGLE_NOT_PERIOD',
+            EN: 'Date is not single',
+            RU: 'Должно быть не больше одной даты'
           },
           INPUT_PERIOD__DATES_NOT_PERIOD: {
-            code: 'INPUT_PERIOD__DATES_NOT_PERIOD',
-            en: 'Dates is not period',
-            ru: 'Даты не являются периодом'
+            CODE: 'INPUT_PERIOD__DATES_NOT_PERIOD',
+            EN: 'Dates is not period',
+            RU: 'Даты не являются периодом'
           },
-
-          UNKNOWN_ERROR: {code: 'UNKNOWN_ERROR', en: 'Unknown error', ru: 'Неизвестная ошибка'},
+          UNKNOWN_ERROR: {
+            CODE: 'UNKNOWN_ERROR',
+            EN: 'Unknown error',
+            RU: 'Неизвестная ошибка'
+          },
           ERROR_DELETING_UNKNOWN_ERROR: {
-            code: 'ERROR_DELETING_UNKNOWN_ERROR',
-            en: 'Error deleting unknown error',
-            ru: 'Ошибка удаления неизвестной ошибки'
+            CODE: 'ERROR_DELETING_UNKNOWN_ERROR',
+            EN: 'Error deleting unknown error',
+            RU: 'Ошибка удаления неизвестной ошибки'
           }
         };
-        var SELECT_TYPE = {MULTI: 'multi', PERIOD: 'period', SINGLE: 'single'}; //['multi', 'period', 'single'];
-        var ACCESS_TYPE = {READ_WRITE: 'read-write', READ: 'read'};
-        var ERROR_LANGUAGE = {EN: 'en', RU: 'ru'};
-        var TEMPLATE_TYPE = {POPUP: 'popup', MODAL: 'modal'};
+        var SELECT_TYPE = {MULTI: 'MULTI', PERIOD: 'PERIOD', SINGLE: 'SINGLE'}; //['multi', 'period', 'single'];
+        var ACCESS_TYPE = {WRITE: 'WRITE', READ: 'READ'};
+        var ERROR_LANGUAGE = {EN: 'EN', RU: 'RU'};
+        var TEMPLATE_TYPE = {POPUP: 'POPUP', MODAL: 'MODAL'};
+        var CONFLICT_S_D = {DISABLED: 'DISABLED', SELECTED: 'SELECTED'};
 
         function start() {
           initErrors();
@@ -124,10 +128,11 @@
             scope.btnClearClass = scope.inputObj.btnClearClass ? (scope.inputObj.btnClearClass) : 'button-stable cal-button';
           }
 
-          scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? (scope.inputObj.selectType) : SELECT_TYPE.MULTI;
-          scope.accessType = (scope.inputObj.accessType && ACCESS_TYPE.hasOwnProperty(scope.inputObj.accessType) > -1) ? (scope.inputObj.accessType) : ACCESS_TYPE.READ_WRITE;
+          scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? scope.inputObj.selectType : SELECT_TYPE.MULTI;
+          scope.accessType = (scope.inputObj.accessType && ACCESS_TYPE.hasOwnProperty(scope.inputObj.accessType) > -1) ? scope.inputObj.accessType : ACCESS_TYPE.WRITE;
           scope.showErrors = (scope.inputObj.showErrors && scope.inputObj.showErrors !== true) ? false : true;
-          scope.errorLanguage = (scope.inputObj.errorLanguage && ERROR_LANGUAGE.hasOwnProperty(scope.inputObj.errorLanguage)) ? (scope.inputObj.errorLanguage) : ERROR_LANGUAGE.EN;
+          scope.errorLanguage = (scope.inputObj.errorLanguage && ERROR_LANGUAGE.hasOwnProperty(scope.inputObj.errorLanguage)) ? scope.inputObj.errorLanguage : ERROR_LANGUAGE.EN;
+          scope.conflictSD = (scope.inputObj.conflictSelectedDisabled && CONFLICT_S_D.hasOwnProperty(scope.inputObj.conflictSelectedDisabled)) ? scope.inputObj.conflictSelectedDisabled : CONFLICT_S_D.DISABLED;
 
           scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
 
@@ -184,7 +189,7 @@
           scope.disabledDates = [];
           if (scope.inputObj.disabledDates && scope.inputObj.disabledDates instanceof Array) {
             scope.disabledDates = scope.inputObj.disabledDates;
-          } 
+          }
 
           // holidays
           scope.holidays = [];
@@ -197,10 +202,7 @@
             if (this.length > 0) {
               for (var i = 0; i < this.length; i++) {
                 var d = this[i];
-                if (t) console.log('t=: ', date, month, year);
-                if (t) console.log('t_: ', d.getDate(), d.getMonth(), d.getFullYear());
                 if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === date) {
-                  if (t) console.log('t+++: ', date, month, year);
                   return {isPresent: true, i: i};
                 }
               }
@@ -246,6 +248,44 @@
             this.sort(function (a, b) {
               return (a.sortField - b.sortField) * direction;
             });
+          };
+
+          scope.selectedDates.checkDisabledConflicts = function () {
+            var d = 0;
+            var s = 0;
+            var dis = scope.disabledDates;
+
+            if (scope.conflictSD === CONFLICT_S_D.DISABLED) {
+
+              while (d < dis.length) {
+                s = 0;
+                while (s < this.length) {
+                  if (dis[d].sortField === this[s].sortField) {
+                    console.log('SEL-');
+                    this.splice(s, 1);
+                  } else {
+                    s++;
+                  }
+                }
+                d++;
+              }
+
+            } else {
+
+              while (s < this.length) {
+                d = 0;
+                while (d < dis.length) {
+                  if (dis[d].sortField === this[s].sortField) {
+                    console.log('DIS-');
+                    dis.splice(d, 1);
+                  } else {
+                    d++;
+                  }
+                }
+                s++;
+              }
+            }
+
           };
 
           scope.selectedDates.getNearestFutureMonth = function () {
@@ -325,6 +365,8 @@
 
           scope.selectedDates.checkClones.call(scope.disabledDates);
           scope.selectedDates.checkClones.call(scope.holidays);
+
+          scope.selectedDates.checkDisabledConflicts();
         }
 
         function initCalendarDates() {
@@ -379,7 +421,7 @@
           // BUTTONS:
           scope.btns = [];
 
-          if (scope.btnClearShow && scope.accessType === ACCESS_TYPE.READ_WRITE) {
+          if (scope.btnClearShow && scope.accessType === ACCESS_TYPE.WRITE) {
             scope.btns.push({
               text: scope.btnClear,
               type: scope.btnClearClass,
@@ -419,7 +461,7 @@
             }
           });
 
-          if (scope.accessType === ACCESS_TYPE.READ_WRITE) {
+          if (scope.accessType === ACCESS_TYPE.WRITE) {
             scope.btns.push({
               text: scope.btnOk,
               type: scope.btnOkClass,
@@ -512,7 +554,6 @@
             var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, viewYear, viewMonth, i, true).isPresent;
             var isSelected = scope.selectedDates.findDate(viewYear, viewMonth, i).isPresent && !isDisabled;
 
-
             var iDate = new Date(viewYear, viewMonth, i);
 
             scope.dayList.push({
@@ -520,7 +561,13 @@
               month: viewMonth,
               date: i,
               day: iDate.getDay(),
-              style: {isSelected: isSelected, isToday: isToday, isDisabled: isDisabled, isHoliday: isHoliday, isViewMonth: isViewMonth}
+              style: {
+                isSelected: isSelected,
+                isToday: isToday,
+                isDisabled: isDisabled,
+                isHoliday: isHoliday,
+                isViewMonth: isViewMonth
+              }
             });
           }
 
@@ -548,7 +595,13 @@
               month: date.month,
               date: lastDay - j,
               day: iDate.getDay(),
-              style: {isSelected: isSelected, isToday: isToday, isDisabled: isDisabled, isHoliday: isHoliday, isViewMonth: isViewMonth}
+              style: {
+                isSelected: isSelected,
+                isToday: isToday,
+                isDisabled: isDisabled,
+                isHoliday: isHoliday,
+                isViewMonth: isViewMonth
+              }
             });
           }
 
@@ -571,7 +624,13 @@
               month: date.month,
               date: i,
               day: iDate.getDay(),
-              style: {isSelected: isSelected, isToday: isToday, isDisabled: isDisabled, isHoliday: isHoliday, isViewMonth: isViewMonth}
+              style: {
+                isSelected: isSelected,
+                isToday: isToday,
+                isDisabled: isDisabled,
+                isHoliday: isHoliday,
+                isViewMonth: isViewMonth
+              }
             });
           }
 
@@ -598,16 +657,19 @@
 
         // tap по клеточке с датой
         scope.dateSelected = function (date) {
-          if (scope.accessType == ACCESS_TYPE.READ_WRITE) {
-            scope.selectedDates.addRemove(date.year, date.month, date.date);
-            scope.dayList.repaint();
-            scope.selectedDates.checkPeriod();
-            if (scope.closeOnSelect) {
-              btnOk();
-              if (scope.templateType === TEMPLATE_TYPE.POPUP) {
-                $timeout(scope.popup.close, 300);
-              } else {
-                $timeout(scope.closeModal, 300);
+          if (scope.accessType == ACCESS_TYPE.WRITE) {
+            var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, date.date).isPresent;
+            if (!isDisabled) {
+              scope.selectedDates.addRemove(date.year, date.month, date.date);
+              scope.dayList.repaint();
+              scope.selectedDates.checkPeriod();
+              if (scope.closeOnSelect) {
+                btnOk();
+                if (scope.templateType === TEMPLATE_TYPE.POPUP) {
+                  $timeout(scope.popup.close, 300);
+                } else {
+                  $timeout(scope.closeModal, 300);
+                }
               }
             }
           }

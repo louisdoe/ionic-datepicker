@@ -129,7 +129,7 @@ $CIRCLE-D: 25px;
     }
     //text-decoration: underline;
   }
-  .date-selected, .date-selected-light {
+  .selected, .selected-light {
     color: $CAL-WHITE !important;
     &:after {
       content: '';
@@ -143,12 +143,12 @@ $CIRCLE-D: 25px;
       border-radius: 50%;
     }
   }
-  .date-selected {
+  .selected {
     &:after {
       background-color: $CAL-RED;
     }
   }
-  .date-selected-light {
+  .selected-light {
     &:after {
       background-color: $CAL-CORAL;
     }
