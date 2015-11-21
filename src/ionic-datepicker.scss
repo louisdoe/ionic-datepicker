@@ -21,6 +21,9 @@ $CAL-GREEN: rgba(155, 214, 89, 100);
 $CAL-WHITE: rgba(255, 255, 255, 100);
 $CAL-GRAY: rgba(204, 204, 204, 100);
 $CAL-BLACK: rgba(0, 0, 0, 100);
+$CAL-HOLIDAY: red;
+$CAL-DISABLED: #868686;
+$CAL-DISABLED-BG: #e7e7e7;
 $CIRCLE-D: 25px;
 .cal-green {
   color: $CAL-GREEN !important;
@@ -72,6 +75,38 @@ $CIRCLE-D: 25px;
 
   .weekend {
     color: $CAL-RED;
+  }
+
+  .holiday {
+    //color: $CAL-RED;
+    &:before {
+      position: absolute;
+      content: '';
+      top: 2px;
+      left: 5px;
+      z-index: 0;
+      width: 8px;
+      height: 8px;
+      background-color: $CAL-HOLIDAY;
+      border: 2px solid white;
+      border-radius: 50%;
+    }
+  }
+
+  .disabledDate {
+    //color: $CAL-RED;
+    color: $CAL-DISABLED !important;
+    &:after {
+      position: absolute;
+      content: '';
+      top: 4px;
+      left: 5px;
+      z-index: -1;
+      width: $CIRCLE-D;
+      height: $CIRCLE-D;
+      background-color: $CAL-DISABLED-BG;
+      //border-radius: 50%;
+    }
   }
 
   .not-cur-month {

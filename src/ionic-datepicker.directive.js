@@ -100,7 +100,6 @@
 
           scope.currentMonth = '';
           scope.currentYear = '';
-          //scope.disabledDates = [];
 
           scope.titleShow = !!scope.inputObj.titleShow;
           scope.title = scope.inputObj.title ? (scope.inputObj.title) : 'Select Date';
@@ -181,12 +180,27 @@
             scope.inputDates = [];
           }
 
+          // disabled dates
+          scope.disabledDates = [];
+          if (scope.inputObj.disabledDates && scope.inputObj.disabledDates instanceof Array) {
+            scope.disabledDates = scope.inputObj.disabledDates;
+          } 
+
+          // holidays
+          scope.holidays = [];
+          if (scope.inputObj.holidays && scope.inputObj.holidays instanceof Array) {
+            scope.holidays = scope.inputObj.holidays;
+          }
+
           // методы:
-          scope.selectedDates.findDate = function (year, month, date) {
-            if (scope.selectedDates.length > 0) {
-              for (var i = 0; i < scope.selectedDates.length; i++) {
-                var d = scope.selectedDates[i];
+          scope.selectedDates.findDate = function (year, month, date, t) {
+            if (this.length > 0) {
+              for (var i = 0; i < this.length; i++) {
+                var d = this[i];
+                if (t) console.log('t=: ', date, month, year);
+                if (t) console.log('t_: ', d.getDate(), d.getMonth(), d.getFullYear());
                 if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === date) {
+                  if (t) console.log('t+++: ', date, month, year);
                   return {isPresent: true, i: i};
                 }
               }
@@ -221,6 +235,7 @@
           };
 
           scope.selectedDates.sortByDate = function (direction) {
+
             direction = (direction && direction === 'desc') ? -1 : 1;
             if (this.length > 0) {
               for (var i = 0; i < this.length; i++) {
@@ -231,7 +246,6 @@
             this.sort(function (a, b) {
               return (a.sortField - b.sortField) * direction;
             });
-
           };
 
           scope.selectedDates.getNearestFutureMonth = function () {
@@ -293,7 +307,7 @@
 
           scope.selectedDates.checkClones = function () {
 
-            this.sortByDate();
+            scope.selectedDates.sortByDate.call(this);
 
             var i = 0;
             while (i < this.length - 1) {
@@ -308,6 +322,9 @@
           // Проверка входного периода!
           scope.selectedDates.checkClones();
           scope.selectedDates.checkPeriod();
+
+          scope.selectedDates.checkClones.call(scope.disabledDates);
+          scope.selectedDates.checkClones.call(scope.holidays);
         }
 
         function initCalendarDates() {
@@ -344,13 +361,11 @@
               }
             }
 
-
             i = 0;
             while (i < this.length) {
               this[i].style.isSelected = viewMonthDates.indexOf(glueDate(this[i])) >= 0;
               i++;
             }
-            // todo тут можно рисовать disabled dates, holidays
           };
 
           scope.dayList.repaintDay = function (year, month, date) {
@@ -368,6 +383,7 @@
             scope.btns.push({
               text: scope.btnClear,
               type: scope.btnClearClass,
+              sType: 'clear',
               onTap: function (e) {
                 btnClear();
                 if (scope.btnsIsNative) {
@@ -381,6 +397,7 @@
             scope.btns.push({
               text: scope.btnToday,
               type: scope.btnTodayClass,
+              sType: 'today',
               onTap: function (e) {
                 btnToday();
                 if (scope.btnsIsNative) {
@@ -486,21 +503,24 @@
           scope.dayList.zero();
 
           for (var i = 1; i <= lastDay; i++) {
-            var isSelected;
-            var isToday = false;
+            //var isSelected;
+            //var isToday = false;
             var isViewMonth = true;
 
+            var isToday = isCurMonthNow && nowDay === i;
+            var isHoliday = scope.selectedDates.findDate.call(scope.holidays, viewYear, viewMonth, i).isPresent;
+            var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, viewYear, viewMonth, i, true).isPresent;
+            var isSelected = scope.selectedDates.findDate(viewYear, viewMonth, i).isPresent && !isDisabled;
+
+
             var iDate = new Date(viewYear, viewMonth, i);
-            if (isCurMonthNow && nowDay === i) {
-              isToday = true;
-            }
-            isSelected = scope.selectedDates.findDate(viewYear, viewMonth, i).isPresent;
+
             scope.dayList.push({
               year: viewYear,
               month: viewMonth,
               date: i,
               day: iDate.getDay(),
-              style: {isSelected: isSelected, isToday: isToday, isViewMonth: isViewMonth}
+              style: {isSelected: isSelected, isToday: isToday, isDisabled: isDisabled, isHoliday: isHoliday, isViewMonth: isViewMonth}
             });
           }
 
@@ -517,14 +537,18 @@
 
           for (var j = 0; j < insertDays; j++) {
 
+            isHoliday = scope.selectedDates.findDate.call(scope.holidays, date.year, date.month, lastDay - j).isPresent;
+            isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, lastDay - j).isPresent;
+            isSelected = scope.selectedDates.findDate(date.year, date.month, lastDay - j).isPresent && !isDisabled;
+
             iDate = new Date(date.year, date.month, lastDay - j);
-            isSelected = scope.selectedDates.findDate(date.year, date.month, lastDay - j).isPresent;
+
             scope.dayList.unshift({
               year: date.year,
               month: date.month,
               date: lastDay - j,
               day: iDate.getDay(),
-              style: {isSelected: isSelected, isToday: isToday, isViewMonth: isViewMonth}
+              style: {isSelected: isSelected, isToday: isToday, isDisabled: isDisabled, isHoliday: isHoliday, isViewMonth: isViewMonth}
             });
           }
 
@@ -537,15 +561,17 @@
           // начало следующего месяца
           date = monthShift(scope.viewYear, scope.viewMonth, '+');
           for (i = 1; i <= daysLeft; i++) {
+            isHoliday = scope.selectedDates.findDate.call(scope.holidays, date.year, date.month, i).isPresent;
+            isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, i).isPresent;
+            isSelected = scope.selectedDates.findDate(date.year, date.month, i).isPresent && !isDisabled;
             iDate = new Date(date.year, date.month, i);
-            isSelected = scope.selectedDates.findDate(date.year, date.month, i).isPresent;
 
             scope.dayList.push({
               year: date.year,
               month: date.month,
               date: i,
               day: iDate.getDay(),
-              style: {isSelected: isSelected, isToday: isToday, isViewMonth: isViewMonth}
+              style: {isSelected: isSelected, isToday: isToday, isDisabled: isDisabled, isHoliday: isHoliday, isViewMonth: isViewMonth}
             });
           }
 

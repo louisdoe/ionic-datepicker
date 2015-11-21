@@ -32,6 +32,8 @@
               , 'date-selected-light': (dayList[row + $index].style.isSelected && accessType == 'read')
               , 'today' : (dayList[row + $index].style.isToday)
               , 'weekend': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month)
+              , 'holiday': (dayList[row + $index].style.isHoliday)
+              , 'disabledDate': (dayList[row + $index].style.isDisabled)
               , 'not-cur-month': (!dayList[row + $index].style.isViewMonth)}">
           <div class="date-cell"
                ng-click="dateSelected(dayList[row + $index])">
@@ -48,7 +50,7 @@
     </div>
   </div>
 
-  <div class="btns ng-hide" ng-show="!isNativeButtons">
+  <div class="btns ng-hide" ng-show="!btnsIsNative">
     <button class="button"
             ng-disabled="btn.sType == 'ok' && errors.len > 0"
             ng-repeat="btn in btns"
