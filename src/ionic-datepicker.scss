@@ -80,7 +80,19 @@ $CIRCLE-D: 25px;
 
   .today {
     font-weight: bolder;
-    text-decoration: underline;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 5px;
+      z-index: -1;
+      width: $CIRCLE-D;
+      height: $CIRCLE-D;
+      //background-color: $CAL-RED;
+      border-radius: 50%;
+      border: 2px solid #53a7ff;
+    }
+    //text-decoration: underline;
   }
   .date-selected, .date-selected-light {
     color: $CAL-WHITE !important;
