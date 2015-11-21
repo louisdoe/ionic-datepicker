@@ -7,9 +7,9 @@
   angular.module('ionic-datepicker')
     .directive('ionicDatepicker', IonicDatepicker);
 
-  IonicDatepicker.$inject = ['$ionicPopup', '$ionicModal', 'IonicDatepickerService'];
+  IonicDatepicker.$inject = ['$ionicPopup', '$ionicModal', '$timeout', 'IonicDatepickerService'];
 
-  function IonicDatepicker($ionicPopup, $ionicModal, IonicDatepickerService) {
+  function IonicDatepicker($ionicPopup, $ionicModal, $timeout, IonicDatepickerService) {
     return {
       restrict: 'AE',
       replace: true,
@@ -130,9 +130,9 @@
           scope.showErrors = (scope.inputObj.showErrors && scope.inputObj.showErrors !== true) ? false : true;
           scope.errorLanguage = (scope.inputObj.errorLanguage && ERROR_LANGUAGE.hasOwnProperty(scope.inputObj.errorLanguage)) ? (scope.inputObj.errorLanguage) : ERROR_LANGUAGE.EN;
 
+          scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
 
           // >> todo
-          //scope.closeOnSelect = scope.inputObj.closeOnSelect ? (scope.inputObj.closeOnSelect) : false;
           //scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
           //scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
           //scope.dateFormat = scope.inputObj.dateFormat ? (scope.inputObj.dateFormat) : 'dd-MM-yyyy';
@@ -576,6 +576,14 @@
             scope.selectedDates.addRemove(date.year, date.month, date.date);
             scope.dayList.repaint();
             scope.selectedDates.checkPeriod();
+            if (scope.closeOnSelect) {
+              btnOk();
+              if (scope.templateType === TEMPLATE_TYPE.POPUP) {
+                $timeout(scope.popup.close, 300);
+              } else {
+                $timeout(scope.closeModal, 300);
+              }
+            }
           }
         };
 
