@@ -15,6 +15,7 @@
 }
 
 $CAL-RED: rgba(246, 109, 103, 100);
+$CAL-CORAL: rgba(255, 133, 121, 0.81);
 $CAL-BLUE: rgba(58, 129, 197, 100);
 $CAL-GREEN: rgba(155, 214, 89, 100);
 $CAL-WHITE: rgba(255, 255, 255, 100);
@@ -81,7 +82,7 @@ $CIRCLE-D: 25px;
     font-weight: bolder;
     text-decoration: underline;
   }
-  .date-selected{
+  .date-selected, .date-selected-light {
     color: $CAL-WHITE !important;
     &:after {
       content: '';
@@ -95,6 +96,17 @@ $CIRCLE-D: 25px;
       border-radius: 50%;
     }
   }
+  .date-selected {
+    &:after {
+      background-color: $CAL-RED;
+    }
+  }
+  .date-selected-light {
+    &:after {
+      background-color: $CAL-CORAL;
+    }
+  }
+
   .date-grid {
     height: 200px;
     .date-row {
@@ -126,15 +138,15 @@ $CIRCLE-D: 25px;
     }
   }
 
-
-
-
+  /* errors */
+  .errors {
+    padding: 20px;
+    color: red;
+  }
 
   /*.today {
     background-color: rgba(186, 186, 186, 1);
   }*/
-
-
 
   .view-month {
     color: $CAL-WHITE;
@@ -182,7 +194,6 @@ $CIRCLE-D: 25px;
   .btns {
     float: right;
   }
-
 }
 
 .ionic_datepicker_modal_content {

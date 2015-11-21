@@ -28,7 +28,8 @@
            ng-repeat="row in rows track by $index">
         <div class="col no-padding date-col"
              ng-repeat="col in cols track by $index"
-             ng-class="{'date-selected': dayList[row + $index].style.isSelected
+             ng-class="{'date-selected': (dayList[row + $index].style.isSelected && accessType == 'read-write')
+              , 'date-selected-light': (dayList[row + $index].style.isSelected && accessType == 'read')
               , 'today' : (dayList[row + $index].style.isToday)
               , 'weekend': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month)
               , 'not-cur-month': (!dayList[row + $index].style.isViewMonth)}">
@@ -41,8 +42,15 @@
     </div>
   </div>
 
+  <div class="errors">
+    <div ng-repeat="error in errors">
+      {{ error.ru }}
+    </div>
+  </div>
+
   <div class="btns ng-hide" ng-show="!isNativeButtons">
     <button class="button"
+            ng-disabled="btn.sType == 'ok' && errors.len > 0"
             ng-repeat="btn in btns"
             ng-class="btn.type"
             ng-click="btn.onTap()"

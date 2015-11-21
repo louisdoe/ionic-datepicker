@@ -17,8 +17,33 @@
         inputObj: "=inputObj"
       },
       link: function (scope, element, attrs) {
+        // IDE definitions
+        var ERRORS = {
+          INPUT_PERIOD__SINGLE_NOT_PERIOD: {
+            code: 'INPUT_PERIOD__SINGLE_NOT_PERIOD',
+            en: 'Date is not single',
+            ru: 'Должно быть не больше одной даты'
+          },
+          INPUT_PERIOD__DATES_NOT_PERIOD: {
+            code: 'INPUT_PERIOD__DATES_NOT_PERIOD',
+            en: 'Dates is not period',
+            ru: 'Даты не являются периодом'
+          },
+
+          UNKNOWN_ERROR: {code: 'UNKNOWN_ERROR', en: 'Unknown error', ru: 'Неизвестная ошибка'},
+          ERROR_DELETING_UNKNOWN_ERROR: {
+            code: 'ERROR_DELETING_UNKNOWN_ERROR',
+            en: 'Error deleting unknown error',
+            ru: 'Ошибка удаления неизвестной ошибки'
+          }
+        };
+        var SELECT_TYPE = {MULTI: 'multi', PERIOD: 'period', SINGLE: 'single'}; //['multi', 'period', 'single'];
+        var ACCESS_TYPE = {READ_WRITE: 'read-write', READ: 'read'};
+        var ERROR_LANGUAGE = {EN: 'en', RU: 'ru'};
+        var TEMPLATE_TYPE = {POPUP: 'popup', MODAL: 'modal'};
 
         function start() {
+          initErrors();
           initView();
           initDates();
           initCalendarDates();
@@ -28,39 +53,90 @@
           refreshDateList();
         }
 
+        var errors;
+
+        function initErrors() {
+          scope.errors = {len: 0};
+          Object.defineProperty(scope.errors, "len", {enumerable: false});
+
+          errors = (function () {
+
+            return {
+              add: function (code) {
+                if (!scope.errors.hasOwnProperty(code) && ERRORS.hasOwnProperty(code)) {
+                  console.debug('0');
+                  var err = ERRORS[code];
+                  scope.errors[code] = ERRORS[code];
+                } else if (!scope.errors.hasOwnProperty(code) && !ERRORS.hasOwnProperty(code)) {
+                  console.debug(code);
+                  err = ERRORS.UNKNOWN_ERROR;
+                  scope.errors.UNKNOWN_ERROR = ERRORS.UNKNOWN_ERROR;
+                }
+                this.length();
+                console.error(err);
+              },
+              remove: function (code) {
+                if (scope.errors.hasOwnProperty(code) && ERRORS.hasOwnProperty(code)) {
+                  delete scope.errors[code];
+                } else if (scope.errors.hasOwnProperty(code) && !ERRORS.hasOwnProperty(code)) {
+                  scope.errors.ERROR_DELETING_UNKNOWN_ERROR = ERRORS.ERROR_DELETING_UNKNOWN_ERROR;
+                }
+                this.length();
+              },
+
+              length: function () {
+                scope.errors.len = 0;
+                for (var err in scope.errors) {
+                  scope.errors.len++;
+                }
+              }
+            }
+          })();
+        }
+
         function initView() {
+          //Setting the title, today, close and set strings for the date picker
+          scope.templateType = (scope.inputObj.templateType && TEMPLATE_TYPE.hasOwnProperty(scope.inputObj.templateType) > -1) ? (scope.inputObj.templateType) : TEMPLATE_TYPE.POPUP;
 
           scope.currentMonth = '';
           scope.currentYear = '';
           //scope.disabledDates = [];
 
-          if (scope.inputObj.isNativeButtons) {
-            scope.isNativeButtons = scope.inputObj.isNativeButtons;
-          } else {
-            scope.isNativeButtons = false;
+          scope.titleShow = !!scope.inputObj.titleShow;
+          scope.title = scope.inputObj.title ? (scope.inputObj.title) : 'Select Date';
+
+          scope.btnsIsNative = !!scope.inputObj.btnsIsNative;
+
+          scope.btnOk = scope.inputObj.btnOk ? (scope.inputObj.btnOk) : 'Ok';
+          scope.btnOkClass = scope.inputObj.btnOkClass ? (scope.inputObj.btnOkClass) : 'button-stable cal-button';
+
+          scope.btnCancel = scope.inputObj.btnCancel ? (scope.inputObj.btnCancel) : 'Close';
+          scope.btnCancelClass = scope.inputObj.btnCancelClass ? (scope.inputObj.btnCancelClass) : 'button-stable cal-button';
+
+          scope.btnTodayShow = !!scope.inputObj.btnTodayShow;
+          if (scope.btnTodayShow) {
+            scope.btnToday = scope.inputObj.btnToday ? (scope.inputObj.btnToday) : 'Today';
+            scope.btnTodayClass = scope.inputObj.btnTodayClass ? (scope.inputObj.btnTodayClass) : 'button-stable cal-button';
           }
 
-          //Setting the title, today, close and set strings for the date picker
-          scope.titleLabel = scope.inputObj.titleLabel ? (scope.inputObj.titleLabel) : 'Select Date';
-          scope.todayLabel = scope.inputObj.todayLabel ? (scope.inputObj.todayLabel) : 'Today';
-          scope.closeLabel = scope.inputObj.closeLabel ? (scope.inputObj.closeLabel) : 'Close';
-          scope.clearLabel = scope.inputObj.clearLabel ? (scope.inputObj.clearLabel) : 'Clear';
-          scope.okLabel = scope.inputObj.okLabel ? (scope.inputObj.okLabel) : 'Set';
-          scope.okButtonType = scope.inputObj.okButtonType ? (scope.inputObj.okButtonType) : 'button-stable cal-button';
-          scope.todayButtonType = scope.inputObj.todayButtonType ? (scope.inputObj.todayButtonType) : 'button-stable cal-button';
-          scope.closeButtonType = scope.inputObj.closeButtonType ? (scope.inputObj.closeButtonType) : 'button-stable cal-button';
-          scope.clearButtonType = scope.inputObj.clearButtonType ? (scope.inputObj.clearButtonType) : 'button-stable cal-button';
+          scope.btnClearShow = !!scope.inputObj.btnClearShow;
+          if (scope.btnClearShow) {
+            scope.btnClear = scope.inputObj.btnClear ? (scope.inputObj.btnClear) : 'Clear';
+            scope.btnClearClass = scope.inputObj.btnClearClass ? (scope.inputObj.btnClearClass) : 'button-stable cal-button';
+          }
 
-          scope.templateType = scope.inputObj.templateType ? (scope.inputObj.templateType) : 'popup'; // 'modal'
+          scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? (scope.inputObj.selectType) : SELECT_TYPE.MULTI;
+          scope.accessType = (scope.inputObj.accessType && ACCESS_TYPE.hasOwnProperty(scope.inputObj.accessType) > -1) ? (scope.inputObj.accessType) : ACCESS_TYPE.READ_WRITE;
+          scope.showErrors = (scope.inputObj.showErrors && scope.inputObj.showErrors !== true) ? false : true;
+          scope.errorLanguage = (scope.inputObj.errorLanguage && ERROR_LANGUAGE.hasOwnProperty(scope.inputObj.errorLanguage)) ? (scope.inputObj.errorLanguage) : ERROR_LANGUAGE.EN;
 
-          scope.showTodayButton = scope.inputObj.showTodayButton ? (scope.inputObj.showTodayButton) : 'true';
-          scope.showClear = scope.inputObj.showClear ? (scope.inputObj.showClear) : false;
-          scope.closeOnSelect = scope.inputObj.closeOnSelect ? (scope.inputObj.closeOnSelect) : false;
 
-          //scope.errorMsgLabel = scope.inputObj.errorMsgLabel ? (scope.inputObj.errorMsgLabel) : 'Please select a date.';
-          scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
-          scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
-          scope.dateFormat = scope.inputObj.dateFormat ? (scope.inputObj.dateFormat) : 'dd-MM-yyyy';
+          // >> todo
+          //scope.closeOnSelect = scope.inputObj.closeOnSelect ? (scope.inputObj.closeOnSelect) : false;
+          //scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
+          //scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
+          //scope.dateFormat = scope.inputObj.dateFormat ? (scope.inputObj.dateFormat) : 'dd-MM-yyyy';
+          // << todo
 
           // Setting the months list. This is useful, if the component needs to use some other language.
           scope.monthsList = [];
@@ -85,6 +161,14 @@
           }
         }
 
+        function glueDate(date) {
+          if (date instanceof Date) {
+            return date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate();
+          } else {
+            return date.year * 10000 + date.month * 100 + date.date;
+          }
+        }
+
         function initDates() {
 
           // МАССИВ С ДАТАМИ:
@@ -96,6 +180,7 @@
             scope.selectedDates = [];
             scope.inputDates = [];
           }
+
           // методы:
           scope.selectedDates.findDate = function (year, month, date) {
             if (scope.selectedDates.length > 0) {
@@ -111,24 +196,42 @@
 
           scope.selectedDates.addRemove = function (year, month, date) {
             var find = this.findDate(year, month, date);
-            if (find.isPresent) {
-              scope.selectedDates.splice(find.i, 1);
-            } else {
-              scope.selectedDates.push(new Date(year, month, date));
+
+            switch (scope.selectType) {
+              case SELECT_TYPE.SINGLE:
+                this.length = 0;
+                if (find.isPresent) {
+                  //scope.selectedDates.length = 0;
+                } else {
+                  this.push(new Date(year, month, date));
+                }
+                break;
+
+              default:
+                if (find.isPresent) {
+                  this.splice(find.i, 1);
+                } else {
+                  this.push(new Date(year, month, date));
+                }
             }
+          };
+
+          scope.selectedDates.clear = function () {
+            this.length = 0;
           };
 
           scope.selectedDates.sortByDate = function (direction) {
             direction = (direction && direction === 'desc') ? -1 : 1;
             if (this.length > 0) {
               for (var i = 0; i < this.length; i++) {
-                this[i].sortField = this[i].getFullYear() * 10000 + this[i].getMonth() * 100 + this[i].getDate();
+                this[i].sortField = glueDate(this[i]);
               }
             }
 
             this.sort(function (a, b) {
               return (a.sortField - b.sortField) * direction;
             });
+
           };
 
           scope.selectedDates.getNearestFutureMonth = function () {
@@ -151,6 +254,60 @@
               return {year: curYear, month: curMonth};
             }
           };
+
+          scope.selectedDates.checkPeriod = function () {
+
+            if (scope.selectType === SELECT_TYPE.SINGLE) {
+              var isTruePeriod = this.length <= 1;
+              if (isTruePeriod) {
+                errors.remove(ERRORS.INPUT_PERIOD__SINGLE_NOT_PERIOD.code);
+              } else {
+                errors.add(ERRORS.INPUT_PERIOD__SINGLE_NOT_PERIOD.code);
+              }
+              return isTruePeriod;
+            }
+
+            if (scope.selectType === SELECT_TYPE.MULTI) {
+              isTruePeriod = true;
+              return isTruePeriod;
+            }
+
+            // 'period':
+            if (this.length > 1) {
+
+              this.sortByDate();
+
+              for (var i = 0; i < this.length - 1; i++) {
+                if (this[i + 1].sortField - this[i].sortField !== 1) {
+                  isTruePeriod = false;
+                  errors.add(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.code);
+                  return isTruePeriod;
+                }
+              }
+            }
+
+            isTruePeriod = true;
+            errors.remove(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.code);
+            return isTruePeriod;
+          };
+
+          scope.selectedDates.checkClones = function () {
+
+            this.sortByDate();
+
+            var i = 0;
+            while (i < this.length - 1) {
+              if (this[i].sortField === this[i + 1].sortField) {
+                this.splice(i + 1, 1);
+              } else {
+                i++;
+              }
+            }
+          };
+
+          // Проверка входного периода!
+          scope.selectedDates.checkClones();
+          scope.selectedDates.checkPeriod();
         }
 
         function initCalendarDates() {
@@ -171,7 +328,33 @@
             }
           };
 
+          scope.dayList.repaint = function () {
+            var viewMonthDates = [];
+            scope.selectedDates.sortByDate();
+
+            var firstDay = glueDate(this[0]);
+            var lastDay = glueDate(this[this.length - 1]);
+
+            var sd = scope.selectedDates;
+            for (var i = 0; i < sd.length; i++) {
+              if (sd[i].sortField >= firstDay && sd[i].sortField <= lastDay) {
+                viewMonthDates.push(sd[i].sortField);
+              } else if (sd[i].sortField > lastDay) {
+                break;
+              }
+            }
+
+
+            i = 0;
+            while (i < this.length) {
+              this[i].style.isSelected = viewMonthDates.indexOf(glueDate(this[i])) >= 0;
+              i++;
+            }
+            // todo тут можно рисовать disabled dates, holidays
+          };
+
           scope.dayList.repaintDay = function (year, month, date) {
+            scope.dayList.repaint();
             var i = this.findDay(year, month, date);
             this[i].style.isSelected = !this[i].style.isSelected;
           };
@@ -181,30 +364,65 @@
           // BUTTONS:
           scope.btns = [];
 
+          if (scope.btnClearShow && scope.accessType === ACCESS_TYPE.READ_WRITE) {
+            scope.btns.push({
+              text: scope.btnClear,
+              type: scope.btnClearClass,
+              onTap: function (e) {
+                btnClear();
+                if (scope.btnsIsNative) {
+                  e.preventDefault();
+                }
+              }
+            });
+          }
+
+          if (scope.btnTodayShow) {
+            scope.btns.push({
+              text: scope.btnToday,
+              type: scope.btnTodayClass,
+              onTap: function (e) {
+                btnToday();
+                if (scope.btnsIsNative) {
+                  e.preventDefault();
+                }
+              }
+            });
+          }
+
           scope.btns.push({
-            text: scope.closeLabel,
-            type: scope.closeButtonType,
+            text: scope.btnCancel,
+            type: scope.btnCancelClass,
+            sType: 'cancel',
             onTap: function (e) {
               btnCancel();
-              if (!scope.isNativeButtons) {
+              if (!scope.btnsIsNative) {
                 scope.popup.close();
               }
             }
           });
 
-          scope.btns.push({
-            text: scope.okLabel,
-            type: scope.okButtonType,
-            onTap: function () {
-              btnOk();
-              if (!scope.isNativeButtons) {
-                scope.popup.close();
+          if (scope.accessType === ACCESS_TYPE.READ_WRITE) {
+            scope.btns.push({
+              text: scope.btnOk,
+              type: scope.btnOkClass,
+              sType: 'ok',
+              onTap: function () {
+                btnOk();
+                if (!scope.btnsIsNative) {
+                  scope.popup.close();
+                }
               }
-            }
-          });
+            });
+          }
         }
 
         function initModal() {
+          //Called when the user clicks on the Set' button of the modal
+          scope.setIonicDatePickerDate = function () {
+            btnOk();
+            scope.closeModal();
+          };
           //Called when the user clicks on the 'Close' button of the modal
           scope.closeIonicDatePickerModal = function () {
             btnCancel();
@@ -212,21 +430,17 @@
           };
           //Called when the user clicks on the 'Clear' button of the modal
           scope.clearIonicDatePickerModal = function () {
-            dateCleared();
-            scope.closeModal();
+            btnClear();
+            //scope.closeModal();
           };
           //Called when the user clicks on the 'Today' button of the modal
           scope.setIonicDatePickerTodayDate = function () {
+            btnToday();
             //scope.inputObj.callback(undefined);
-            scope.closeModal();
-          };
-          //Called when the user clicks on the Set' button of the modal
-          scope.setIonicDatePickerDate = function () {
-            btnOk();
-            scope.closeModal();
+            //scope.closeModal();
           };
 
-          if (scope.templateType === 'modal') {
+          if (scope.templateType === TEMPLATE_TYPE.MODAL) {
             //Getting the reference for the 'ionic-datepicker' modal.
             $ionicModal.fromTemplateUrl('ionic-datepicker-modal.html', {
               scope: scope,
@@ -358,8 +572,11 @@
 
         // tap по клеточке с датой
         scope.dateSelected = function (date) {
-          scope.selectedDates.addRemove(date.year, date.month, date.date);
-          scope.dayList.repaintDay(date.year, date.month, date.date);
+          if (scope.accessType == ACCESS_TYPE.READ_WRITE) {
+            scope.selectedDates.addRemove(date.year, date.month, date.date);
+            scope.dayList.repaint();
+            scope.selectedDates.checkPeriod();
+          }
         };
 
         function monthShift(year, month, direction) {
@@ -394,23 +611,37 @@
           scope.inputObj.callback(scope.inputDates);
         }
 
+        function btnClear() {
+          scope.selectedDates.clear();
+          scope.dayList.repaint();
+        }
+
+        function btnToday() {
+          var d = new Date();
+
+          scope.viewYear = d.getFullYear();
+          scope.viewMonth = d.getMonth();
+
+          refreshDateList();
+        }
+
         //Called when the user clicks on the button to invoke the 'ionic-datepicker'
         element.on("click", function () {
           //This code is added to set passed date from datepickerObject
 
           start();
 
-          if (scope.templateType === 'modal') {
+          if (scope.templateType === TEMPLATE_TYPE.MODAL) {
             scope.openModal();
           } else {
             //Getting the reference for the 'ionic-datepicker' popup.
             var buttons = scope.btns;
-            if (!scope.isNativeButtons) {
+            if (!scope.btnsIsNative) {
               buttons = [];
             }
             scope.popup = $ionicPopup.show({
               templateUrl: 'ionic-datepicker-popup.html',
-              //title: scope.titleLabel,
+              //title: scope.title,
               //subTitle: '',
               cssClass: 'picker-body',
               scope: scope,
