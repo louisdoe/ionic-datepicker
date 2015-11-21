@@ -57,6 +57,7 @@ $CIRCLE-D: 25px;
     padding: 5px 3px;
     position: absolute;
     top: 10px;
+    z-index: 1;
   }
 
   .icon-chevron-left:before {
@@ -64,7 +65,22 @@ $CIRCLE-D: 25px;
   }
 
   .icon-chevron-right:before {
-    right: 10px;
+    left: 216px;
+  }
+
+  .month-year-selector {
+    position: fixed;
+    top: 0;
+    left: 50px;
+    right: 50px;
+    max-width: 100px;
+    background-color: transparent;
+    color: transparent;
+    border-width: 0;
+    input {
+      //color: red;
+      color: transparent;
+    }
   }
   /* calendar */
 

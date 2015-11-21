@@ -1,5 +1,7 @@
 //By Rajeshwar Patlolla - rajeshwar.patlolla@gmail.com
-//https://github.com/rajeshwarpatlolla
+
+// forked and rewrited by Denni Adam - dennila2@gmail.com
+// https://github.com/dennila2
 
 (function () {
   'use strict';
@@ -104,9 +106,15 @@
 
           scope.currentMonth = '';
           scope.currentYear = '';
+          scope.monthYear = {
+            select: new Date()
+          };
 
+          // TODO
           scope.titleShow = !!scope.inputObj.titleShow;
-          scope.title = scope.inputObj.title ? (scope.inputObj.title) : 'Select Date';
+          if (scope.titleShow) {
+            scope.title = scope.inputObj.title ? (scope.inputObj.title) : 'Select Date';
+          }
 
           scope.btnsIsNative = !!scope.inputObj.btnsIsNative;
 
@@ -651,6 +659,13 @@
           var date = monthShift(scope.viewYear, scope.viewMonth, '+');
           scope.viewYear = date.year;
           scope.viewMonth = date.month;
+
+          refreshDateList();
+        };
+
+        scope.monthYearSelect = function () {
+          scope.viewYear = scope.monthYear.select.getFullYear();
+          scope.viewMonth = scope.monthYear.select.getMonth();
 
           refreshDateList();
         };
