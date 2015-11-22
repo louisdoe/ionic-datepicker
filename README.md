@@ -159,4 +159,4 @@ gmail : dennila2@gmail.com
 
 github : https://github.com/dennila2
 
-Comment or Rate it : http://market.ionic.io/plugins/ionicMultiDatePicker
+Comment or Rate it : http://market.ionic.io/plugins/ionic-multi-date-picker
