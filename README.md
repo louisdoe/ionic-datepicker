@@ -6,6 +6,7 @@ Forked from https://github.com/rajeshwarpatlolla/ionic-datepicker
 and fully rewrited.
 
 [Repo with simple ionic-application](https://github.com/DenniLa2/ionic-datepicker-sample-project)
+
 [Home Ionic-multi-date-picker](https://github.com/DenniLa2/ionic-datepicker)
 
 ##Prerequisites.
