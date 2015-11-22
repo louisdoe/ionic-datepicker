@@ -14,10 +14,10 @@ var path = {
 };
 
 gulp.task('html2js', function () {
-  return gulp.src(['./src/ionic-datepicker-popup.html', './src/ionic-datepicker-modal.html'])
+  return gulp.src(['./src/ionic-multi-date-picker-popup.html', './src/ionic-multi-date-picker-modal.html'])
     .pipe(minifyHtml())
     .pipe(ngHtml2Js({
-      moduleName: "ionic-datepicker.templates"
+      moduleName: "ionic-multi-date-picker.templates"
     }))
     .pipe(concat("templates.js"))
     //.pipe(uglify())
@@ -25,7 +25,7 @@ gulp.task('html2js', function () {
 });
 
 gulp.task('scss', function () {
-  gulp.src('./src/ionic-datepicker.scss')
+  gulp.src('./src/ionic-multi-date-picker.scss')
     .pipe(sass())
     .on('error', sass.logError)
     .pipe(gulp.dest('./src/'));
@@ -38,7 +38,7 @@ gulp.task('scss', function () {
 });
 
 gulp.task('css2js', function () {
-  return gulp.src('./src/ionic-datepicker.scss')
+  return gulp.src('./src/ionic-multi-date-picker.scss')
     .pipe(sass())
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -50,13 +50,13 @@ gulp.task('css2js', function () {
 
 gulp.task('make-bundle', ['del', 'html2js', 'css2js'], function () {
   return gulp.src(['dist/*.js', './src/*.js'])
-    .pipe(concat('ionic-datepicker.bundle.min.js'))
+    .pipe(concat('ionic-multi-date-picker.bundle.min.js'))
     //.pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('del-temp-files', ['make-bundle'], function () {
-  return del(['dist/templates.js', 'dist/ionic-datepicker.styles.js']);
+  return del(['dist/templates.js', 'dist/ionic-multi-date-picker.styles.js']);
 });
 
 gulp.task('del', function () {

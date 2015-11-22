@@ -1,52 +1,3 @@
-(function (doc, cssText) {
-    var styleEl = doc.createElement("style");
-    doc.getElementsByTagName("head")[0].appendChild(styleEl);
-    if (styleEl.styleSheet) {
-        if (!styleEl.styleSheet.disabled) {
-            styleEl.styleSheet.cssText = cssText;
-        }
-    } else {
-        try {
-            styleEl.innerHTML = cssText;
-        } catch (ignore) {
-            styleEl.innerText = cssText;
-        }
-    }
-}(document, ".picker-body{height:inherit}.picker-body .popup-head{padding:0;border:0}.picker-body .popup-body{overflow:inherit!important;padding:0}.cal-green{color:#9bd659!important}.cal-green-bg{background-color:#9bd659;z-index:-2}.ionic-datepicker{background-color:#fff}.ionic-datepicker .no-padding{padding:0}.ionic-datepicker .clear{clear:both}.ionic-datepicker .title{color:#3a81c5}.ionic-datepicker .title h3{font-size:2em;text-align:center!important;margin:0;padding:10px;width:100%}.ionic-datepicker .navigator{background-color:#3a81c5;min-height:50px}.ionic-datepicker .icon-chevron{position:relative}.ionic-datepicker .icon-chevron:before{background-color:#fff;width:24px;height:24px;border-radius:50%;padding:5px 3px;position:absolute;top:-7px;z-index:1}.ionic-datepicker .icon-chevron-left:before{left:2px}.ionic-datepicker .icon-chevron-right:before{left:-25px}.ionic-datepicker .month-year-selector{position:fixed;top:0;left:50px;right:50px;max-width:100px;background-color:transparent;color:transparent;border-width:0}.ionic-datepicker .month-year-selector input{color:transparent}.ionic-datepicker .calendar-grid{margin:50px auto 0;max-width:260px}.ionic-datepicker .week-days{text-transform:uppercase;text-align:center}.ionic-datepicker .weekend{color:#f66d67}.ionic-datepicker .holiday:before{position:absolute;content:'';top:2px;left:5px;z-index:0;width:8px;height:8px;background-color:red;border:2px solid #fff;border-radius:50%}.ionic-datepicker .disabledDate{color:#868686!important}.ionic-datepicker .disabledDate:after{position:absolute;content:'';top:4px;left:5px;z-index:-1;width:25px;height:25px;background-color:#e7e7e7}.ionic-datepicker .not-cur-month{color:#ccc}.ionic-datepicker .today{font-weight:bolder}.ionic-datepicker .today:after{content:'';position:absolute;top:4px;left:5px;z-index:-1;width:25px;height:25px;border-radius:50%;border:2px solid #53a7ff}.ionic-datepicker .selected,.ionic-datepicker .selected-light{color:#fff!important}.ionic-datepicker .selected-light:after,.ionic-datepicker .selected:after{content:'';position:absolute;top:4px;left:5px;z-index:-1;width:25px;height:25px;border-radius:50%}.ionic-datepicker .selected:after{background-color:#f66d67}.ionic-datepicker .selected-light:after{background-color:#ff8579}.ionic-datepicker .date-grid{height:200px}.ionic-datepicker .date-grid .date-row{text-align:center}.ionic-datepicker .date-grid .date-row .date-col{position:relative;z-index:1;width:44px}.ionic-datepicker .date-grid .date-row .date-col:active,.ionic-datepicker .date-grid .date-row .date-col:hover{cursor:pointer}.ionic-datepicker .date-grid .date-row .date-col .date-cell{padding:5px;margin:1px}.ionic-datepicker .errors{max-width:260px;padding:20px;margin:0 auto;color:#f66d67}.ionic-datepicker .view-month{color:#fff;padding:14px}.ionic-datepicker .pointer_events_none{pointer-events:none!important}.ionic-datepicker .select_section{padding:0}.ionic-datepicker .select_section label{padding:12px}.ionic-datepicker .select_section select{font-size:12px;font-weight:700;padding:2px 10px;direction:ltr;left:0;width:100%;max-width:100%}.ionic-datepicker .select_section .item-select:after{right:4px;border-top:4px solid;border-right:4px solid #000;border-left:4px solid #000}.ionic-datepicker .left-arrow{direction:rtl}.ionic-datepicker .font_22px{font-size:22px}.ionic-datepicker .btns-right-popup{float:right}.ionic-datepicker .btns-right-modal{direction:rtl}.ionic_datepicker_modal_content{padding-top:10%}.ionic_datepicker_modal_content .ionic-datepicker .selected_date_full{font-size:20px;padding:20px}.ionic_datepicker_modal_content .cal-button{padding:0!important;font-size:14px!important}@media (min-width:680px){.ionic_datepicker_modal_content{padding-top:0}.ionic_datepicker_modal_content .ionic-datepicker .selected_date_full{font-size:inherit;padding:10px 0 0}}"));
-
-(function(module) {
-try {
-  module = angular.module('ionic-datepicker.templates');
-} catch (e) {
-  module = angular.module('ionic-datepicker.templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('ionic-datepicker-popup.html',
-    '<div class=ionic-datepicker><div class="title ng-hide" ng-show="header.length > 0"><h3 ng-class=headerClass ng-bind=header></h3></div><div class="navigator row no-padding"><div class="col col-10 left-arrow" ng-click=prevMonth()><button class=button-clear><i class="icon icon-chevron icon-chevron-left ion-chevron-left"></i></button></div><div class="col col-80 view-month text-center">{{ monthsList[viewMonth] }} {{ viewYear }}</div><div class="col col-10" ng-click=nextMonth()><button class=button-clear><i class="icon icon-chevron icon-chevron-right ion-chevron-right"></i></button></div></div><label class="month-year-selector item item-input"><input type=month ng-model=monthYear.select ng-change=monthYearSelect()></label><div><div class=row><div class="col week-days" ng-class="{\'weekend\': ($index == 5 || $index == 6)}" ng-repeat="weekName in weekNames track by $index" ng-bind=weekName></div></div><div class=date-grid><div class="row date-row" ng-repeat="row in rows track by $index"><div class="col no-padding date-col" ng-repeat="col in cols track by $index" ng-class="{\'selected\': (dayList[row + $index].style.isSelected && accessType == \'WRITE\') , \'selected-light\': (dayList[row + $index].style.isSelected && accessType == \'READ\') , \'today\' : (dayList[row + $index].style.isToday) , \'weekend\': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month) , \'holiday\': (dayList[row + $index].style.isHoliday) , \'disabledDate\': (dayList[row + $index].style.isDisabled) , \'not-cur-month\': (!dayList[row + $index].style.isViewMonth)}"><div class=date-cell ng-click="dateSelected(dayList[row + $index])">{{ dayList[row + col].date }}</div></div></div></div></div><div class=errors><div ng-repeat="error in errors">{{ error.ru }}</div></div><div class="btns-right-popup ng-hide" ng-show=!btnsIsNative><button class=button ng-disabled="btn.sType == \'ok\' && errors.len > 0" ng-repeat="btn in btns" ng-class=btn.type ng-click=btn.onTap()>{{ btn.text }}</button></div><div class=clear></div></div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('ionic-datepicker.templates');
-} catch (e) {
-  module = angular.module('ionic-datepicker.templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('ionic-datepicker-modal.html',
-    '<ion-modal-view class=ionic-datepicker><ion-header-bar class=title ng-class=headerClass><h3 ng-class=headerClass ng-bind=header></h3></ion-header-bar><ion-content><div><div class="navigator row no-padding"><div class="col col-10 left-arrow" ng-click=prevMonth()><button class=button-clear><i class="icon icon-chevron icon-chevron-left ion-chevron-left"></i></button></div><div class="col col-80 view-month text-center">{{ monthsList[viewMonth] }} {{ viewYear }}</div><div class="col col-10" ng-click=nextMonth()><button class=button-clear><i class="icon icon-chevron icon-chevron-right ion-chevron-right"></i></button></div></div><label class="month-year-selector item item-input"><input type=month ng-model=monthYear.select ng-change=monthYearSelect()></label><div class=calendar-grid><div class=row><div class="col week-days" ng-class="{\'weekend\': ($index == 5 || $index == 6)}" ng-repeat="weekName in weekNames track by $index" ng-bind=weekName></div></div><div class=date-grid><div class="row date-row" ng-repeat="row in rows track by $index"><div class="col no-padding date-col" ng-repeat="col in cols track by $index" ng-class="{\'selected\': (dayList[row + $index].style.isSelected && accessType == \'WRITE\') , \'selected-light\': (dayList[row + $index].style.isSelected && accessType == \'READ\') , \'today\' : (dayList[row + $index].style.isToday) , \'weekend\': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month) , \'holiday\': (dayList[row + $index].style.isHoliday) , \'disabledDate\': (dayList[row + $index].style.isDisabled) , \'not-cur-month\': (!dayList[row + $index].style.isViewMonth)}"><div class=date-cell ng-click="dateSelected(dayList[row + $index])">{{ dayList[row + col].date }}</div></div></div></div></div><div class=errors><div ng-repeat="error in errors">{{ error[errorLanguage] }}</div></div></div></ion-content><ion-footer-bar ng-class=modalFooterColor><div class="row no-padding btns-right-modal"><button class=button ng-repeat="btn in btns" ng-click=btn.onClickModal() ng-disabled="btn.sType == \'ok\' && errors.len > 0" ng-class=btn.type>{{ btn.text }}</button></div></ion-footer-bar></ion-modal-view>');
-}]);
-})();
-
-//By Rajeshwar Patlolla - rajeshwar.patlolla@gmail.com
-//https://github.com/rajeshwarpatlolla
-
-(function(){
-  'use strict';
-
-  angular.module('ionic-datepicker', ['ionic','ionic-datepicker.templates']);
-  
-})();
 //By Rajeshwar Patlolla - rajeshwar.patlolla@gmail.com
 
 // forked and rewrited by Denni Adam - dennila2@gmail.com
@@ -55,12 +6,12 @@ module.run(['$templateCache', function($templateCache) {
 (function () {
   'use strict';
 
-  angular.module('ionic-datepicker')
-    .directive('ionicDatepicker', IonicDatepicker);
+  angular.module('ionic-multi-date-picker')
+    .directive('ionicMultiDatePicker', IonicMultiDatePicker);
 
-  IonicDatepicker.$inject = ['$ionicPopup', '$ionicModal', '$timeout', 'IonicDatepickerService'];
+  IonicMultiDatePicker.$inject = ['$ionicPopup', '$ionicModal', '$timeout', 'IonicMultiDatePickerService'];
 
-  function IonicDatepicker($ionicPopup, $ionicModal, $timeout, IonicDatepickerService) {
+  function IonicMultiDatePicker($ionicPopup, $ionicModal, $timeout, IonicMultiDatePickerService) {
     return {
       restrict: 'AE',
       replace: true,
@@ -182,7 +133,6 @@ module.run(['$templateCache', function($templateCache) {
             scope.btnClear = scope.inputObj.btnClear ? scope.inputObj.btnClear : 'Clear';
             scope.btnClearClass = scope.inputObj.btnClearClass ? scope.inputObj.btnClearClass : 'button-stable cal-button';
           }
-
           scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? scope.inputObj.selectType : SELECT_TYPE.MULTI;
           scope.accessType = (scope.inputObj.accessType && ACCESS_TYPE.hasOwnProperty(scope.inputObj.accessType) > -1) ? scope.inputObj.accessType : ACCESS_TYPE.WRITE;
           scope.showErrors = (scope.inputObj.showErrors && scope.inputObj.showErrors !== true) ? false : true;
@@ -191,18 +141,12 @@ module.run(['$templateCache', function($templateCache) {
 
           scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
 
-          //scope.modal = null;
-          // >> todo
-          //scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
-          //scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
-          // << todo
-
           // Setting the months list. This is useful, if the component needs to use some other language.
           scope.monthsList = [];
           if (scope.inputObj.monthList && scope.inputObj.monthList.length === 12) {
             scope.monthsList = scope.inputObj.monthList;
           } else {
-            scope.monthsList = IonicDatepickerService.monthsList;
+            scope.monthsList = IonicMultiDatePickerService.monthsList;
           }
           // weaklist
           if (scope.inputObj.weekDaysList && scope.inputObj.weekDaysList.length === 7) {
@@ -756,8 +700,8 @@ module.run(['$templateCache', function($templateCache) {
         }
 
         function initModal() {
-          // reference for the 'ionic-datepicker' modal.
-          $ionicModal.fromTemplateUrl('ionic-datepicker-modal.html', {
+          // reference for the 'ionic-multi-date-picker' modal.
+          $ionicModal.fromTemplateUrl('ionic-multi-date-picker-modal.html', {
             scope: scope,
             animation: 'slide-in-up'
           }).then(function (modal) {
@@ -771,7 +715,7 @@ module.run(['$templateCache', function($templateCache) {
           };
         }
 
-        //Called when the user clicks on the button to invoke the 'ionic-datepicker'
+        //Called when the user clicks on the button to invoke the 'ionic-multi-date-picker'
         element.on("click", function () {
           //This code is added to set passed date from datepickerObject
           start();
@@ -779,13 +723,13 @@ module.run(['$templateCache', function($templateCache) {
           if (scope.templateType === TEMPLATE_TYPE.MODAL) {
             scope.openModal();
           } else {
-            //Getting the reference for the 'ionic-datepicker' popup.
+            //Getting the reference for the 'ionic-multi-date-picker' popup.
             var buttons = scope.btns;
             if (!scope.btnsIsNative) {
               buttons = [];
             }
             scope.popup = $ionicPopup.show({
-              templateUrl: 'ionic-datepicker-popup.html',
+              templateUrl: 'ionic-multi-date-picker-popup.html',
               cssClass: 'picker-body',
               scope: scope,
               buttons: buttons
@@ -793,45 +737,6 @@ module.run(['$templateCache', function($templateCache) {
           }
         });
       }
-    };
-  }
-
-})();
-//By Rajeshwar Patlolla - rajeshwar.patlolla@gmail.com
-//https://github.com/rajeshwarpatlolla
-
-(function(){
-  'use strict';
-
-  angular.module('ionic-datepicker')
-    .service('IonicDatepickerService',IonicDatepickerService);
-
-  IonicDatepickerService.$inject = [];
-  function IonicDatepickerService(){
-    this.monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    /**
-     * Get years list
-     */
-
-    this.getYearsList = function(from, to){
-      var yearsList = [],
-          minYear   = 1900,
-          maxYear   = 2100;
-
-      if(from){
-        minYear = new Date(from).getFullYear();
-      }
-
-      if(to){
-        maxYear = new Date(to).getFullYear();
-      }
-
-      for (var i = minYear; i <= maxYear; i++) {
-        yearsList.push(i);
-      };
-
-      return yearsList;
     };
   }
 
