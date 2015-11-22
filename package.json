@@ -1,12 +1,13 @@
 {
-  "name": "ionic-datepicker",
-  "version": "0.9.0",
-  "description": "A date picker for IONIC framework",
+  "name": "ionic-multi-date-picker",
+  "version": "0.1.1",
+  "description": "A multi date picker for Ionic framework",
   "main": [
-    "./dist/ionic-datepicker.bundle.min.js"
+    "./dist/ionic-multi-date-picker.bundle.min.js"
   ],
   "scripts": {},
-  "author": "https://github.com/rajeshwarpatlolla, rajeshwar.patlolla@gmail.com",
+  "author": "https://github.com/dennila2, dennila2@gmail.com",
+	"fork": "https://github.com/rajeshwarpatlolla, rajeshwar.patlolla@gmail.com",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {

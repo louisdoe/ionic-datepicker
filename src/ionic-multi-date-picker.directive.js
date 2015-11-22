@@ -71,6 +71,7 @@
             return {
               add: function (code) {
                 if (!scope.errors.hasOwnProperty(code) && ERRORS.hasOwnProperty(code)) {
+                  console.debug('code+: ' + code);
                   var err = ERRORS[code];
                   scope.errors[code] = ERRORS[code];
                 } else if (!scope.errors.hasOwnProperty(code) && !ERRORS.hasOwnProperty(code)) {
@@ -112,6 +113,7 @@
           };
 
           scope.header = (scope.inputObj.header && scope.inputObj.header.length > 0) ? scope.inputObj.header : '';
+          if (scope.templateType === TEMPLATE_TYPE.MODAL && scope.header === '') scope.header = 'Datepicker';
           scope.headerClass = scope.inputObj.headerClass;
 
           scope.btnsIsNative = !!scope.inputObj.btnsIsNative;
@@ -330,9 +332,15 @@
 
               for (var i = 0; i < this.length - 1; i++) {
                 if (this[i + 1].sortField - this[i].sortField !== 1) {
-                  isTruePeriod = false;
-                  errors.add(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.CODE);
-                  return isTruePeriod;
+                  var d1 = new Date(this[i].getFullYear(), this[i].getMonth(), this[i].getDate());
+                  var d2 = new Date(this[i + 1].getFullYear(), this[i + 1].getMonth(), this[i + 1].getDate());
+                  var diff = (d2.getTime() - d1.getTime()) / (24 * 60 * 60 * 1000);
+
+                  if (diff != 1) {
+                    isTruePeriod = false;
+                    errors.add(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.CODE);
+                    return isTruePeriod;
+                  }
                 }
               }
             }

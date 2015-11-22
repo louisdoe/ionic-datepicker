@@ -6,6 +6,7 @@ Forked from https://github.com/rajeshwarpatlolla/ionic-datepicker
 and fully rewrited.
 
 [Repo with simple ionic-application](https://github.com/DenniLa2/ionic-datepicker-sample-project)
+[Home Ionic-multi-date-picker](https://github.com/DenniLa2/ionic-datepicker)
 
 ##Prerequisites.
 
@@ -80,7 +81,7 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 **2. header** 
 **3. headerClass** - ionic css classes.
 **4. btnsIsNative** - use ionic-popup-native buttons. Default: true.
-**5. btnOk** - caption on Ok buttot.
+**5. btnOk** - caption on Ok button.
 **6. btnOkClass** - ionic css classes.
 **7. btnCancel** - caption on Cancel button.
 **8. btnCancelClass** - ionic css classes.
@@ -92,7 +93,7 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 **14. btnClearClass** - ionic css classes
 **15. selectType** - SINGLE - one date per calendar, PERIOD  - continuous date period, MULTI - random dates. Default `MULTI`.
 **16. accessType** - READ | WRITE. Default - `WRITE`.
-**17. errorLanguage** - language of user errors. EN | RU. Default EN.
+**17. errorLanguage** - language of user errors. EN | RU. Default `EN`.
 **18. selectedDates** - array with javascript dates.
 **19. viewMonth** - first viewed month. Default: current or nearest next month with date.
 **20. disabledDates** - array with javascript dates of disabled dates.
@@ -117,12 +118,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **2. input-obj**(Mandatory) - This is an object. We have to pass an object as shown above.
 
-##Screen Shots:
-
-<img src="https://lh3.googleusercontent.com/IeNOa_UmMpRhWCP4Hl2Cc4ZO1YuwNAd4vmKBYzsX2FY=w434-h678-no" width="300" height="450" />
-<img src="https://lh3.googleusercontent.com/IGjqpsiPj1_92DTiW2oJcSvBTdp93PGOYEk4VzQiABg=w442-h678-no" width="300" height="450" />
-
 ##Video:
+[YouTube](https://youtu.be/RxW628a9U-M)
 
 ##Versions:
 
