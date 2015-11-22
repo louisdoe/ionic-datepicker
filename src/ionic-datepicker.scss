@@ -16,7 +16,7 @@ $CIRCLE-D: 25px;
   height: inherit;
 
   .popup-head {
-    // header of ionic popup !
+    // NB! header of ionic popup
     padding: 0;
     border: 0;
   }
@@ -47,14 +47,18 @@ $CIRCLE-D: 25px;
   }
 
   .title {
-    text-align: center;
+
     color: $IDP-BLUE;
+
     h3 {
+      font-size: 2em;
+      text-align: center !important;
       margin: 0;
       padding: 10px;
+      width: 100%;
     }
   }
-  
+
   .navigator {
     background-color: $IDP-BLUE;
     min-height: 50px;
@@ -92,12 +96,14 @@ $CIRCLE-D: 25px;
     color: transparent;
     border-width: 0;
     input {
-      //color: red;
       color: transparent;
     }
   }
   /* calendar */
-
+  .calendar-grid {
+    margin: 50px auto 0;
+    max-width: 260px;
+  }
   .week-days {
     text-transform: uppercase;
     text-align: center;
@@ -108,7 +114,6 @@ $CIRCLE-D: 25px;
   }
 
   .holiday {
-    //color: $IDP-RED;
     &:before {
       position: absolute;
       content: '';
@@ -124,7 +129,6 @@ $CIRCLE-D: 25px;
   }
 
   .disabledDate {
-    //color: $IDP-RED;
     color: $IDP-DISABLED !important;
     &:after {
       position: absolute;
@@ -135,7 +139,6 @@ $CIRCLE-D: 25px;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
       background-color: $IDP-DISABLED-BG;
-      //border-radius: 50%;
     }
   }
 
@@ -153,11 +156,9 @@ $CIRCLE-D: 25px;
       z-index: -1;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
-      //background-color: $IDP-RED;
       border-radius: 50%;
       border: 2px solid $IDP-SKYEY;
     }
-    //text-decoration: underline;
   }
   .selected, .selected-light {
     color: $IDP-WHITE !important;
@@ -188,28 +189,19 @@ $CIRCLE-D: 25px;
     height: 200px;
     .date-row {
       text-align: center;
-      //height: 44px;
       .date-col {
         position: relative;
         z-index: 1;
         width: 44px;
         &:hover {
-          //.date-col:hover {}
-          // background-color: rgba(56, 126, 245, 0.5);
           cursor: pointer;
         }
         &:active {
-          //.date-col:active {}
-          //background-color: $IDP-BLUE;
           cursor: pointer;
         }
         .date-cell {
-          //position: absolute;
           padding: 5px;
           margin: 1px;
-          //width: 5px;
-          //height: 5px;
-          //background-color: $IDP-GREEN;
         }
       }
     }
@@ -217,13 +209,11 @@ $CIRCLE-D: 25px;
 
   /* errors */
   .errors {
+    max-width: 260px;
     padding: 20px;
+    margin: 0 auto;
     color: $IDP-RED;
   }
-
-  /*.today {
-    background-color: rgba(186, 186, 186, 1);
-  }*/
 
   .view-month {
     color: $IDP-WHITE;
@@ -232,7 +222,6 @@ $CIRCLE-D: 25px;
 
   .pointer_events_none {
     pointer-events: none !important;
-    //color: #AAAAAA;
   }
 
   .select_section {
@@ -268,8 +257,12 @@ $CIRCLE-D: 25px;
     font-size: 22px;
   }
 
-  .btns {
+  .btns-right-popup {
     float: right;
+  }
+
+  .btns-right-modal {
+    direction: rtl;
   }
 }
 

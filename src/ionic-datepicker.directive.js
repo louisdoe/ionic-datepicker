@@ -54,10 +54,11 @@
           initDates();
           initCalendarDates();
           initBtns();
-          initModal();
           setViewMonth();
           refreshDateList();
         }
+
+        initModal();
 
         var errors;
 
@@ -70,11 +71,10 @@
             return {
               add: function (code) {
                 if (!scope.errors.hasOwnProperty(code) && ERRORS.hasOwnProperty(code)) {
-                  console.debug('0');
                   var err = ERRORS[code];
                   scope.errors[code] = ERRORS[code];
                 } else if (!scope.errors.hasOwnProperty(code) && !ERRORS.hasOwnProperty(code)) {
-                  console.debug(code);
+                  console.debug('code: ' + code);
                   err = ERRORS.UNKNOWN_ERROR;
                   scope.errors.UNKNOWN_ERROR = ERRORS.UNKNOWN_ERROR;
                 }
@@ -103,6 +103,7 @@
         function initView() {
           //Setting the title, today, close and set strings for the date picker
           scope.templateType = (scope.inputObj.templateType && TEMPLATE_TYPE.hasOwnProperty(scope.inputObj.templateType) > -1) ? (scope.inputObj.templateType) : TEMPLATE_TYPE.POPUP;
+
 
           scope.currentMonth = '';
           scope.currentYear = '';
@@ -141,6 +142,7 @@
 
           scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
 
+          //scope.modal = null;
           // >> todo
           //scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
           //scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
@@ -316,9 +318,9 @@
             if (scope.selectType === SELECT_TYPE.SINGLE) {
               var isTruePeriod = this.length <= 1;
               if (isTruePeriod) {
-                errors.remove(ERRORS.INPUT_PERIOD__SINGLE_NOT_PERIOD.code);
+                errors.remove(ERRORS.INPUT_PERIOD__SINGLE_NOT_PERIOD.CODE);
               } else {
-                errors.add(ERRORS.INPUT_PERIOD__SINGLE_NOT_PERIOD.code);
+                errors.add(ERRORS.INPUT_PERIOD__SINGLE_NOT_PERIOD.CODE);
               }
               return isTruePeriod;
             }
@@ -336,14 +338,14 @@
               for (var i = 0; i < this.length - 1; i++) {
                 if (this[i + 1].sortField - this[i].sortField !== 1) {
                   isTruePeriod = false;
-                  errors.add(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.code);
+                  errors.add(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.CODE);
                   return isTruePeriod;
                 }
               }
             }
 
             isTruePeriod = true;
-            errors.remove(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.code);
+            errors.remove(ERRORS.INPUT_PERIOD__DATES_NOT_PERIOD.CODE);
             return isTruePeriod;
           };
 
@@ -428,6 +430,9 @@
               text: scope.btnClear,
               type: scope.btnClearClass,
               sType: 'clear',
+              onClickModal: function () {
+                btnClear();
+              },
               onTap: function (e) {
                 btnClear();
                 if (scope.btnsIsNative) {
@@ -442,6 +447,9 @@
               text: scope.btnToday,
               type: scope.btnTodayClass,
               sType: 'today',
+              onClickModal: function () {
+                btnToday();
+              },
               onTap: function (e) {
                 btnToday();
                 if (scope.btnsIsNative) {
@@ -455,7 +463,11 @@
             text: scope.btnCancel,
             type: scope.btnCancelClass,
             sType: 'cancel',
-            onTap: function (e) {
+            onClickModal: function () {
+              btnCancel();
+              scope.closeModal();
+            },
+            onTap: function () {
               btnCancel();
               if (!scope.btnsIsNative) {
                 scope.popup.close();
@@ -468,6 +480,10 @@
               text: scope.btnOk,
               type: scope.btnOkClass,
               sType: 'ok',
+              onClickModal: function () {
+                btnOk();
+                scope.closeModal();
+              },
               onTap: function () {
                 btnOk();
                 if (!scope.btnsIsNative) {
@@ -476,46 +492,8 @@
               }
             });
           }
-        }
 
-        function initModal() {
-          //Called when the user clicks on the Set' button of the modal
-          scope.setIonicDatePickerDate = function () {
-            btnOk();
-            scope.closeModal();
-          };
-          //Called when the user clicks on the 'Close' button of the modal
-          scope.closeIonicDatePickerModal = function () {
-            btnCancel();
-            scope.closeModal();
-          };
-          //Called when the user clicks on the 'Clear' button of the modal
-          scope.clearIonicDatePickerModal = function () {
-            btnClear();
-            //scope.closeModal();
-          };
-          //Called when the user clicks on the 'Today' button of the modal
-          scope.setIonicDatePickerTodayDate = function () {
-            btnToday();
-            //scope.inputObj.callback(undefined);
-            //scope.closeModal();
-          };
-
-          // reference for the 'ionic-datepicker' modal.
-          if (scope.templateType === TEMPLATE_TYPE.MODAL) {
-            $ionicModal.fromTemplateUrl('ionic-datepicker-modal.html', {
-              scope: scope,
-              animation: 'slide-in-up'
-            }).then(function (modal) {
-              scope.modal = modal;
-            });
-            scope.openModal = function () {
-              scope.modal.show();
-            };
-            scope.closeModal = function () {
-              scope.modal.hide();
-            };
-          }
+          if (scope.templateType === TEMPLATE_TYPE.MODAL) scope.btns.reverse()
         }
 
         function setViewMonth() {
@@ -716,6 +694,7 @@
         function btnClear() {
           scope.selectedDates.clear();
           scope.dayList.repaint();
+          scope.selectedDates.checkPeriod();
         }
 
         function btnToday() {
@@ -727,10 +706,25 @@
           refreshDateList();
         }
 
+        function initModal() {
+          // reference for the 'ionic-datepicker' modal.
+          $ionicModal.fromTemplateUrl('ionic-datepicker-modal.html', {
+            scope: scope,
+            animation: 'slide-in-up'
+          }).then(function (modal) {
+            scope.modal = modal;
+          });
+          scope.openModal = function () {
+            scope.modal.show();
+          };
+          scope.closeModal = function () {
+            scope.modal.hide();
+          };
+        }
+
         //Called when the user clicks on the button to invoke the 'ionic-datepicker'
         element.on("click", function () {
           //This code is added to set passed date from datepickerObject
-
           start();
 
           if (scope.templateType === TEMPLATE_TYPE.MODAL) {
@@ -743,8 +737,6 @@
             }
             scope.popup = $ionicPopup.show({
               templateUrl: 'ionic-datepicker-popup.html',
-              //title: scope.title,
-              //subTitle: '',
               cssClass: 'picker-body',
               scope: scope,
               buttons: buttons

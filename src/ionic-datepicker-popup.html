@@ -2,7 +2,7 @@
 <div class="ionic-datepicker">
 
   <div class="title ng-hide" ng-show="header.length > 0">
-    <h3 ng-bind="header" ng-class="headerClass"></h3>
+    <h3 ng-class="headerClass" ng-bind="header"></h3>
   </div>
 
   <div class="navigator row no-padding">
@@ -22,7 +22,6 @@
   </div>
 
   <label class="month-year-selector item item-input">
-    <!--<span class="input-label"></span>-->
     <input type="month" ng-model="monthYear.select" ng-change="monthYearSelect()">
   </label>
 
@@ -61,14 +60,13 @@
     </div>
   </div>
 
-  <div class="btns ng-hide" ng-show="!btnsIsNative">
+  <div class="btns-right-popup ng-hide" ng-show="!btnsIsNative">
     <button class="button"
             ng-disabled="btn.sType == 'ok' && errors.len > 0"
             ng-repeat="btn in btns"
             ng-class="btn.type"
-            ng-click="btn.onTap()"
-      >{{ btn.text }}
-
+            ng-click="btn.onTap()">
+      {{ btn.text }}
     </button>
   </div>
   <div class="clear"></div>
