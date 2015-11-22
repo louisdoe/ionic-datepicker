@@ -501,8 +501,8 @@
             //scope.closeModal();
           };
 
+          // reference for the 'ionic-datepicker' modal.
           if (scope.templateType === TEMPLATE_TYPE.MODAL) {
-            //Getting the reference for the 'ionic-datepicker' modal.
             $ionicModal.fromTemplateUrl('ionic-datepicker-modal.html', {
               scope: scope,
               animation: 'slide-in-up'
@@ -512,7 +512,6 @@
             scope.openModal = function () {
               scope.modal.show();
             };
-
             scope.closeModal = function () {
               scope.modal.hide();
             };
