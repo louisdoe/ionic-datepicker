@@ -1,6 +1,11 @@
 <!--<div class="ionic_datepicker_popup_btn_cancel" ng-click="popupCancel()">X</div>-->
 <div class="ionic-datepicker">
-  <div class="header row no-padding">
+
+  <div class="title ng-hide" ng-show="header.length > 0">
+    <h3 ng-bind="header" ng-class="headerClass"></h3>
+  </div>
+
+  <div class="navigator row no-padding">
     <div class="col col-10 left-arrow" ng-click="prevMonth()">
       <button class="button-clear">
         <i class="icon icon-chevron icon-chevron-left ion-chevron-left"></i>

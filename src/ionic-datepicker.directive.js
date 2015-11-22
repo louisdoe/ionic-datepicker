@@ -42,7 +42,7 @@
             RU: 'Ошибка удаления неизвестной ошибки'
           }
         };
-        var SELECT_TYPE = {MULTI: 'MULTI', PERIOD: 'PERIOD', SINGLE: 'SINGLE'}; //['multi', 'period', 'single'];
+        var SELECT_TYPE = {MULTI: 'MULTI', PERIOD: 'PERIOD', SINGLE: 'SINGLE'};
         var ACCESS_TYPE = {WRITE: 'WRITE', READ: 'READ'};
         var ERROR_LANGUAGE = {EN: 'EN', RU: 'RU'};
         var TEMPLATE_TYPE = {POPUP: 'POPUP', MODAL: 'MODAL'};
@@ -110,30 +110,27 @@
             select: new Date()
           };
 
-          // TODO
-          scope.titleShow = !!scope.inputObj.titleShow;
-          if (scope.titleShow) {
-            scope.title = scope.inputObj.title ? (scope.inputObj.title) : 'Select Date';
-          }
+          scope.header = (scope.inputObj.header && scope.inputObj.header.length > 0) ? scope.inputObj.header : '';
+          scope.headerClass = scope.inputObj.headerClass;
 
           scope.btnsIsNative = !!scope.inputObj.btnsIsNative;
 
-          scope.btnOk = scope.inputObj.btnOk ? (scope.inputObj.btnOk) : 'Ok';
-          scope.btnOkClass = scope.inputObj.btnOkClass ? (scope.inputObj.btnOkClass) : 'button-stable cal-button';
+          scope.btnOk = scope.inputObj.btnOk ? scope.inputObj.btnOk : 'Ok';
+          scope.btnOkClass = scope.inputObj.btnOkClass ? scope.inputObj.btnOkClass : 'button-stable cal-button';
 
-          scope.btnCancel = scope.inputObj.btnCancel ? (scope.inputObj.btnCancel) : 'Close';
-          scope.btnCancelClass = scope.inputObj.btnCancelClass ? (scope.inputObj.btnCancelClass) : 'button-stable cal-button';
+          scope.btnCancel = scope.inputObj.btnCancel ? scope.inputObj.btnCancel : 'Close';
+          scope.btnCancelClass = scope.inputObj.btnCancelClass ? scope.inputObj.btnCancelClass : 'button-stable cal-button';
 
           scope.btnTodayShow = !!scope.inputObj.btnTodayShow;
           if (scope.btnTodayShow) {
-            scope.btnToday = scope.inputObj.btnToday ? (scope.inputObj.btnToday) : 'Today';
-            scope.btnTodayClass = scope.inputObj.btnTodayClass ? (scope.inputObj.btnTodayClass) : 'button-stable cal-button';
+            scope.btnToday = scope.inputObj.btnToday ? scope.inputObj.btnToday : 'Today';
+            scope.btnTodayClass = scope.inputObj.btnTodayClass ? scope.inputObj.btnTodayClass : 'button-stable cal-button';
           }
 
           scope.btnClearShow = !!scope.inputObj.btnClearShow;
           if (scope.btnClearShow) {
-            scope.btnClear = scope.inputObj.btnClear ? (scope.inputObj.btnClear) : 'Clear';
-            scope.btnClearClass = scope.inputObj.btnClearClass ? (scope.inputObj.btnClearClass) : 'button-stable cal-button';
+            scope.btnClear = scope.inputObj.btnClear ? scope.inputObj.btnClear : 'Clear';
+            scope.btnClearClass = scope.inputObj.btnClearClass ? scope.inputObj.btnClearClass : 'button-stable cal-button';
           }
 
           scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? scope.inputObj.selectType : SELECT_TYPE.MULTI;
@@ -147,7 +144,6 @@
           // >> todo
           //scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
           //scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
-          //scope.dateFormat = scope.inputObj.dateFormat ? (scope.inputObj.dateFormat) : 'dd-MM-yyyy';
           // << todo
 
           // Setting the months list. This is useful, if the component needs to use some other language.
@@ -183,8 +179,8 @@
 
         function initDates() {
 
-          // МАССИВ С ДАТАМИ:
-          // рабочая копия и копия на случай отмены!
+          // INPUT DATES:
+          // work copy & cancel copy
           if (scope.inputObj.selectedDates && scope.inputObj.selectedDates.length > 0) {
             scope.selectedDates = angular.copy(scope.inputObj.selectedDates);
             scope.inputDates = angular.copy(scope.inputObj.selectedDates);
@@ -205,7 +201,7 @@
             scope.holidays = scope.inputObj.holidays;
           }
 
-          // методы:
+          // methods:
           scope.selectedDates.findDate = function (year, month, date, t) {
             if (this.length > 0) {
               for (var i = 0; i < this.length; i++) {
@@ -269,7 +265,6 @@
                 s = 0;
                 while (s < this.length) {
                   if (dis[d].sortField === this[s].sortField) {
-                    console.log('SEL-');
                     this.splice(s, 1);
                   } else {
                     s++;
@@ -284,7 +279,6 @@
                 d = 0;
                 while (d < dis.length) {
                   if (dis[d].sortField === this[s].sortField) {
-                    console.log('DIS-');
                     dis.splice(d, 1);
                   } else {
                     d++;
@@ -367,7 +361,7 @@
             }
           };
 
-          // Проверка входного периода!
+          // checking input period
           scope.selectedDates.checkClones();
           scope.selectedDates.checkPeriod();
 
@@ -380,9 +374,9 @@
         function initCalendarDates() {
 
 
-          // МАССИВ ДАТ КАЛЕНДАРИКА:
+          // VIEWED DATES:
           scope.dayList = [];
-          // методы:
+          // methods:
           scope.dayList.zero = function () {
             this.length = 0;
           };
@@ -526,7 +520,7 @@
         }
 
         function setViewMonth() {
-          // выбор отображаемого месяца (текущий или ближайшие впереди)
+          // select viewed month(current || nearest next)
           if (scope.inputObj.viewMonth && scope.inputObj.viewMonth.length > 0) {
             scope.viewYear = scope.inputObj.viewMonth[0].getFullYear();
             scope.viewMonth = scope.inputObj.viewMonth[0].getMonth();
@@ -552,9 +546,8 @@
 
           scope.dayList.zero();
 
+          // current month
           for (var i = 1; i <= lastDay; i++) {
-            //var isSelected;
-            //var isToday = false;
             var isViewMonth = true;
 
             var isToday = isCurMonthNow && nowDay === i;
@@ -584,7 +577,7 @@
           insertDays = (insertDays < 0) ? 6 : insertDays;
           lastDay = new Date(viewYear, viewMonth, 0).getDate();
 
-          // конец предыдущего месяца
+          // end of preview month
           var date = monthShift(viewYear, viewMonth, '-');
           isViewMonth = false;
           isToday = false;
@@ -619,7 +612,7 @@
           }
 
           var daysLeft = 7 - scope.dayList.length % 7;
-          // начало следующего месяца
+          // start of next month
           date = monthShift(scope.viewYear, scope.viewMonth, '+');
           for (i = 1; i <= daysLeft; i++) {
             isHoliday = scope.selectedDates.findDate.call(scope.holidays, date.year, date.month, i).isPresent;
@@ -644,7 +637,6 @@
 
           scope.cols = [0, 1, 2, 3, 4, 5, 6];
 
-          //scope.numColumns = 7;
         }
 
         scope.prevMonth = function () {
@@ -670,7 +662,7 @@
           refreshDateList();
         };
 
-        // tap по клеточке с датой
+        // date-cell onTap:
         scope.dateSelected = function (date) {
           if (scope.accessType == ACCESS_TYPE.WRITE) {
             var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, date.date).isPresent;

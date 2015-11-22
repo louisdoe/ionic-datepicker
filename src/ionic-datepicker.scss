@@ -1,9 +1,22 @@
+$IDP-RED: rgb(246, 109, 103);
+$IDP-CORAL: rgb(255, 133, 121);
+$IDP-BLUE: rgb(58, 129, 197);
+$IDP-SKYEY: rgb(83, 167, 255);
+$IDP-GREEN: rgb(155, 214, 89);
+$IDP-WHITE: rgb(255, 255, 255);
+$IDP-GRAY: rgb(204, 204, 204);
+$IDP-BLACK: rgb(0, 0, 0);
+$IDP-HOLIDAY: rgb(255, 0, 0);
+$IDP-DISABLED: rgb(134, 134, 134);
+$IDP-DISABLED-BG: rgb(231, 231, 231);
+$CIRCLE-D: 25px;
+
 .picker-body {
 
   height: inherit;
 
   .popup-head {
-    // header of ionic popup
+    // header of ionic popup !
     padding: 0;
     border: 0;
   }
@@ -14,28 +27,17 @@
   }
 }
 
-$CAL-RED: rgba(246, 109, 103, 100);
-$CAL-CORAL: rgba(255, 133, 121, 0.81);
-$CAL-BLUE: rgba(58, 129, 197, 100);
-$CAL-GREEN: rgba(155, 214, 89, 100);
-$CAL-WHITE: rgba(255, 255, 255, 100);
-$CAL-GRAY: rgba(204, 204, 204, 100);
-$CAL-BLACK: rgba(0, 0, 0, 100);
-$CAL-HOLIDAY: red;
-$CAL-DISABLED: #868686;
-$CAL-DISABLED-BG: #e7e7e7;
-$CIRCLE-D: 25px;
 .cal-green {
-  color: $CAL-GREEN !important;
+  color: $IDP-GREEN !important;
 }
 
 .cal-green-bg {
-  background-color: $CAL-GREEN;
+  background-color: $IDP-GREEN;
   z-index: -2;
 }
 
 .ionic-datepicker {
-  background-color: $CAL-WHITE;
+  background-color: $IDP-WHITE;
   .no-padding {
     padding: 0;
   }
@@ -44,28 +46,40 @@ $CIRCLE-D: 25px;
     clear: both;
   }
 
-  .header {
-    background-color: $CAL-BLUE;
+  .title {
+    text-align: center;
+    color: $IDP-BLUE;
+    h3 {
+      margin: 0;
+      padding: 10px;
+    }
+  }
+  
+  .navigator {
+    background-color: $IDP-BLUE;
     min-height: 50px;
   }
 
+  .icon-chevron {
+    position: relative;
+  }
   .icon-chevron:before {
-    background-color: $CAL-WHITE;
+    background-color: $IDP-WHITE;
     width: 24px;
     height: 24px;
     border-radius: 50%;
     padding: 5px 3px;
     position: absolute;
-    top: 10px;
+    top: -7px;
     z-index: 1;
   }
 
   .icon-chevron-left:before {
-    left: 10px;
+    left: 2px;
   }
 
   .icon-chevron-right:before {
-    left: 216px;
+    left: -25px;
   }
 
   .month-year-selector {
@@ -90,11 +104,11 @@ $CIRCLE-D: 25px;
   }
 
   .weekend {
-    color: $CAL-RED;
+    color: $IDP-RED;
   }
 
   .holiday {
-    //color: $CAL-RED;
+    //color: $IDP-RED;
     &:before {
       position: absolute;
       content: '';
@@ -103,15 +117,15 @@ $CIRCLE-D: 25px;
       z-index: 0;
       width: 8px;
       height: 8px;
-      background-color: $CAL-HOLIDAY;
-      border: 2px solid white;
+      background-color: $IDP-HOLIDAY;
+      border: 2px solid $IDP-WHITE;
       border-radius: 50%;
     }
   }
 
   .disabledDate {
-    //color: $CAL-RED;
-    color: $CAL-DISABLED !important;
+    //color: $IDP-RED;
+    color: $IDP-DISABLED !important;
     &:after {
       position: absolute;
       content: '';
@@ -120,13 +134,13 @@ $CIRCLE-D: 25px;
       z-index: -1;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
-      background-color: $CAL-DISABLED-BG;
+      background-color: $IDP-DISABLED-BG;
       //border-radius: 50%;
     }
   }
 
   .not-cur-month {
-    color: $CAL-GRAY;
+    color: $IDP-GRAY;
   }
 
   .today {
@@ -139,14 +153,14 @@ $CIRCLE-D: 25px;
       z-index: -1;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
-      //background-color: $CAL-RED;
+      //background-color: $IDP-RED;
       border-radius: 50%;
-      border: 2px solid #53a7ff;
+      border: 2px solid $IDP-SKYEY;
     }
     //text-decoration: underline;
   }
   .selected, .selected-light {
-    color: $CAL-WHITE !important;
+    color: $IDP-WHITE !important;
     &:after {
       content: '';
       position: absolute;
@@ -155,18 +169,18 @@ $CIRCLE-D: 25px;
       z-index: -1;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
-      background-color: $CAL-RED;
+      background-color: $IDP-RED;
       border-radius: 50%;
     }
   }
   .selected {
     &:after {
-      background-color: $CAL-RED;
+      background-color: $IDP-RED;
     }
   }
   .selected-light {
     &:after {
-      background-color: $CAL-CORAL;
+      background-color: $IDP-CORAL;
     }
   }
 
@@ -186,7 +200,7 @@ $CIRCLE-D: 25px;
         }
         &:active {
           //.date-col:active {}
-          //background-color: $CAL-BLUE;
+          //background-color: $IDP-BLUE;
           cursor: pointer;
         }
         .date-cell {
@@ -195,7 +209,7 @@ $CIRCLE-D: 25px;
           margin: 1px;
           //width: 5px;
           //height: 5px;
-          //background-color: $CAL-GREEN;
+          //background-color: $IDP-GREEN;
         }
       }
     }
@@ -204,7 +218,7 @@ $CIRCLE-D: 25px;
   /* errors */
   .errors {
     padding: 20px;
-    color: red;
+    color: $IDP-RED;
   }
 
   /*.today {
@@ -212,7 +226,7 @@ $CIRCLE-D: 25px;
   }*/
 
   .view-month {
-    color: $CAL-WHITE;
+    color: $IDP-WHITE;
     padding: 14px;
   }
 
@@ -241,8 +255,8 @@ $CIRCLE-D: 25px;
     .item-select:after {
       right: 4px;
       border-top: 4px solid;
-      border-right: 4px solid $CAL-BLACK;
-      border-left: 4px solid $CAL-BLACK;
+      border-right: 4px solid $IDP-BLACK;
+      border-left: 4px solid $IDP-BLACK;
     }
   }
 
