@@ -125,7 +125,7 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 0.1.0 - forked from https://github.com/rajeshwarpatlolla 
 
-0.2.0 - fully rewrited.
+1.0.0 - fully rewrited.
 
 ##Contact:
 gmail : dennila2@gmail.com
