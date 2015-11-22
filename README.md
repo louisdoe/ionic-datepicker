@@ -79,31 +79,57 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 **$scope.datepickerObject** is the main object, that we need to pass to the directive. The properties of this object are as follows.
 
 **1. templateType** - the type of dialog. Default is `MODAL`
+
 **2. header** 
+
 **3. headerClass** - ionic css classes.
+
 **4. btnsIsNative** - use ionic-popup-native buttons. Default: true.
+
 **5. btnOk** - caption on Ok button.
+
 **6. btnOkClass** - ionic css classes.
+
 **7. btnCancel** - caption on Cancel button.
+
 **8. btnCancelClass** - ionic css classes.
+
 **9. btnTodayShow** - Default false.
+
 **10. btnToday** - caption.
+
 **11. btnTodayClass - ionic css classes.
+
 **12. btnClearShow** - default false.
+
 **13. btnClear** - caption.
+
 **14. btnClearClass** - ionic css classes
+
 **15. selectType** - SINGLE - one date per calendar, PERIOD  - continuous date period, MULTI - random dates. Default `MULTI`.
+
 **16. accessType** - READ | WRITE. Default - `WRITE`.
+
 **17. errorLanguage** - language of user errors. EN | RU. Default `EN`.
+
 **18. selectedDates** - array with javascript dates.
+
 **19. viewMonth** - first viewed month. Default: current or nearest next month with date.
+
 **20. disabledDates** - array with javascript dates of disabled dates.
+
 **21. holidays** - javascript array with holidays
+
 **22. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
+
 **23. closeOnSelect** - default false.
+
 **24. mondayFirst** - default true,
+
 **25. weekDaysList**
+
 **26. monthList**
+
 **29. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
 ````javascript
     var retSelectedDates = function (dates) {
