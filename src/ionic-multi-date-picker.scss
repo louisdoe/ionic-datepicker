@@ -1,15 +1,92 @@
-$IDP-RED: rgb(246, 109, 103);
-$IDP-CORAL: rgb(255, 133, 121);
-$IDP-BLUE: rgb(58, 129, 197);
-$IDP-SKYEY: rgb(83, 167, 255);
-$IDP-GREEN: rgb(155, 214, 89);
-$IDP-WHITE: rgb(255, 255, 255);
-$IDP-GRAY: rgb(204, 204, 204);
-$IDP-BLACK: rgb(0, 0, 0);
-$IDP-HOLIDAY: rgb(255, 0, 0);
-$IDP-DISABLED: rgb(134, 134, 134);
-$IDP-DISABLED-BG: rgb(231, 231, 231);
+$MDP-RED: rgb(246, 109, 103);
+$MDP-YELLOW: rgb(246, 232, 0);
+$MDP-ORANGE: rgb(246, 130, 0);
+$MDP-VIOLET: rgb(246, 0, 199);
+$MDP-SAHA: rgb(159, 0, 246);
+$MDP-CORAL: rgb(255, 133, 121);
+$MDP-BLUE: rgb(58, 129, 197);
+$MDP-SKYEY: rgb(83, 167, 255);
+$MDP-GREEN: rgb(155, 214, 89);
+$MDP-GGREEN: rgb(0, 214, 108);
+$MDP-WHITE: rgb(255, 255, 255);
+$MDP-GRAY: rgb(204, 204, 204);
+$MDP-BLACK: rgb(0, 0, 0);
+$MDP-HOLIDAY: rgb(255, 0, 0);
+$MDP-DISABLED: rgb(134, 134, 134);
+$MDP-DISABLED-BG: rgb(231, 231, 231);
 $CIRCLE-D: 25px;
+//COLORS CLASSES:
+.cal-color-red {
+  &:before {
+    background-color: $MDP-RED;
+  }
+}
+
+.cal-color-yellow {
+  &:before {
+    background-color: $MDP-YELLOW;
+  }
+}
+
+.cal-color-orange {
+  &:before {
+    background-color: $MDP-ORANGE;
+  }
+}
+
+.cal-color-violet {
+  &:before {
+    background-color: $MDP-VIOLET;
+  }
+}
+
+.cal-color-saha {
+  &:before {
+    background-color: $MDP-SAHA;
+  }
+}
+
+.cal-color-coral {
+  &:before {
+    background-color: $MDP-CORAL;
+  }
+}
+
+.cal-color-blue {
+  &:before {
+    background-color: $MDP-BLUE;
+  }
+}
+
+.cal-color-skyey {
+  &:before {
+    background-color: $MDP-SKYEY;
+  }
+}
+
+.cal-color-green {
+  &:before {
+    background-color: $MDP-GREEN;
+  }
+}
+
+.cal-color-ggreen {
+  &:before {
+    background-color: $MDP-GGREEN;
+  }
+}
+
+.cal-color-holiday {
+  &:before {
+    background-color: $MDP-HOLIDAY;
+  }
+}
+
+.cal-color-black {
+  &:before {
+    background-color: $MDP-BLACK;
+  }
+}
 
 .picker-body {
 
@@ -28,16 +105,16 @@ $CIRCLE-D: 25px;
 }
 
 .cal-green {
-  color: $IDP-GREEN !important;
+  color: $MDP-GREEN !important;
 }
 
 .cal-green-bg {
-  background-color: $IDP-GREEN;
+  background-color: $MDP-GREEN;
   z-index: -2;
 }
 
 .ionic-datepicker {
-  background-color: $IDP-WHITE;
+  background-color: $MDP-WHITE;
   .no-padding {
     padding: 0;
   }
@@ -48,7 +125,7 @@ $CIRCLE-D: 25px;
 
   .title {
 
-    color: $IDP-BLUE;
+    color: $MDP-BLUE;
 
     h3 {
       font-size: 2em;
@@ -68,7 +145,7 @@ $CIRCLE-D: 25px;
   }
 
   .navigator {
-    background-color: $IDP-BLUE;
+    background-color: $MDP-BLUE;
     min-height: 50px;
   }
 
@@ -76,7 +153,7 @@ $CIRCLE-D: 25px;
     position: relative;
   }
   .icon-chevron:before {
-    background-color: $IDP-WHITE;
+    background-color: $MDP-WHITE;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -119,26 +196,99 @@ $CIRCLE-D: 25px;
   }
 
   .weekend {
-    color: $IDP-RED;
+    color: $MDP-RED;
   }
 
   .holiday {
     &:before {
       position: absolute;
       content: '';
-      top: 2px;
+      top: 3px;
       left: 5px;
       z-index: 0;
       width: 8px;
       height: 8px;
-      background-color: $IDP-HOLIDAY;
-      border: 2px solid $IDP-WHITE;
+      background-color: $MDP-HOLIDAY;
+      border: 2px solid $MDP-WHITE;
       border-radius: 50%;
     }
   }
 
+  .calendar-1, .calendar-2, .calendar-3, .calendar-4,
+  .calendar-5, .calendar-6, .calendar-7  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    &:before {
+      position: absolute;
+      content: '';
+      z-index: 0;
+      width: 8px;
+      height: 8px;
+      border: 2px solid $MDP-WHITE;
+      border-radius: 50%;
+    }
+  }
+
+  .calendar-1 {
+    &:before {
+      top: -1px;
+      left: 14px;
+      //background-color: $MDP-BLUE;
+    }
+  }
+
+  .calendar-2 {
+    &:before {
+      top: 3px;
+      left: 23px;
+      //background-color: $MDP-YELLOW;
+    }
+  }
+
+  .calendar-3 {
+    &:before {
+      top: 12px;
+      left: 27px;
+      //background-color: $MDP-GRAY;
+    }
+  }
+
+  .calendar-4 {
+    &:before {
+      top: 22px;
+      left: 24px;
+      //background-color: $MDP-VIOLET;
+    }
+  }
+
+  .calendar-5 {
+    &:before {
+      top: 25px;
+      left: 14px;
+      //background-color: $MDP-SAHA;
+    }
+  }
+
+  .calendar-6 {
+    &:before {
+      top: 22px;
+      left: 5px;
+      //background-color: $MDP-SKYEY;
+    }
+  }
+
+  .calendar-7 {
+    &:before {
+      top: 12px;
+      left: 1px;
+      //background-color: $MDP-BLACK;
+    }
+  }
+
   .disabledDate {
-    color: $IDP-DISABLED !important;
+    color: $MDP-DISABLED !important;
     &:after {
       position: absolute;
       content: '';
@@ -147,12 +297,12 @@ $CIRCLE-D: 25px;
       z-index: -1;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
-      background-color: $IDP-DISABLED-BG;
+      background-color: $MDP-DISABLED-BG;
     }
   }
 
   .not-cur-month {
-    color: $IDP-GRAY;
+    color: $MDP-GRAY;
   }
 
   .today {
@@ -166,11 +316,11 @@ $CIRCLE-D: 25px;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
       border-radius: 50%;
-      border: 2px solid $IDP-SKYEY;
+      border: 2px solid $MDP-SKYEY;
     }
   }
   .selected, .selected-light {
-    color: $IDP-WHITE !important;
+    color: $MDP-WHITE !important;
     &:after {
       content: '';
       position: absolute;
@@ -179,18 +329,18 @@ $CIRCLE-D: 25px;
       z-index: -1;
       width: $CIRCLE-D;
       height: $CIRCLE-D;
-      background-color: $IDP-RED;
+      background-color: $MDP-RED;
       border-radius: 50%;
     }
   }
   .selected {
     &:after {
-      background-color: $IDP-RED;
+      background-color: $MDP-RED;
     }
   }
   .selected-light {
     &:after {
-      background-color: $IDP-CORAL;
+      background-color: $MDP-CORAL;
     }
   }
 
@@ -221,11 +371,11 @@ $CIRCLE-D: 25px;
     max-width: 260px;
     padding: 20px;
     margin: 0 auto;
-    color: $IDP-RED;
+    color: $MDP-RED;
   }
 
   .view-month {
-    color: $IDP-WHITE;
+    color: $MDP-WHITE;
     padding: 14px;
   }
 
@@ -253,8 +403,8 @@ $CIRCLE-D: 25px;
     .item-select:after {
       right: 4px;
       border-top: 4px solid;
-      border-right: 4px solid $IDP-BLACK;
-      border-left: 4px solid $IDP-BLACK;
+      border-right: 4px solid $MDP-BLACK;
+      border-left: 4px solid $MDP-BLACK;
     }
   }
 

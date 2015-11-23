@@ -49,6 +49,13 @@
                ng-click="dateSelected(dayList[row + $index])">
             {{ dayList[row + col].date }}
           </div>
+          <div class="calendar-1 ng-hide" ng-class="calendar1Class" ng-show="dayList[row + $index].style.isCalendar1"></div>
+          <div class="calendar-2 ng-hide" ng-class="calendar2Class" ng-show="dayList[row + $index].style.isCalendar2"></div>
+          <div class="calendar-3 ng-hide" ng-class="calendar3Class" ng-show="dayList[row + $index].style.isCalendar3"></div>
+          <div class="calendar-4 ng-hide" ng-class="calendar4Class" ng-show="dayList[row + $index].style.isCalendar4"></div>
+          <div class="calendar-5 ng-hide" ng-class="calendar5Class" ng-show="dayList[row + $index].style.isCalendar5"></div>
+          <div class="calendar-6 ng-hide" ng-class="calendar6Class" ng-show="dayList[row + $index].style.isCalendar6"></div>
+          <div class="calendar-7 ng-hide" ng-class="calendar7Class" ng-show="dayList[row + $index].style.isCalendar7"></div>
         </div>
       </div>
     </div>

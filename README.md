@@ -63,6 +63,20 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
       viewMonth: $scope.selectedDates, 
       disabledDates: disabledDates,
       holidays: holidays,
+      calendar1: holidays,
+      calendar1Class: '',
+      calendar2: calendar,
+      calendar2Class: '',
+      calendar3: calendar,
+      calendar3Class: '',
+      calendar4: calendar,
+      calendar4Class: 'cal-color-black',
+      calendar5: calendar,
+      calendar5Class: '',
+      calendar6: calendar,
+      calendar6Class: '',
+      calendar7: calendar,
+      calendar7Class: '',
       conflictSelectedDisabled: 'DISABLED', // SELECTED | DISABLED
       closeOnSelect: false,
       mondayFirst: true,
@@ -98,7 +112,7 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **10. btnToday** - caption.
 
-**11. btnTodayClass - ionic css classes.
+**11. btnTodayClass** - ionic css classes.
 
 **12. btnClearShow** - default false.
 
@@ -120,15 +134,21 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **21. holidays** - javascript array with holidays
 
-**22. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
+**22. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
 
-**23. closeOnSelect** - default false.
+![cal1-cal7](dennila2.github.com/ionic-datepicker/blob/master/dist/imdp-calendars.jpg)
 
-**24. mondayFirst** - default true,
+**23. (new) calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
 
-**25. weekDaysList**
+**24. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
 
-**26. monthList**
+**25. closeOnSelect** - default false.
+
+**26. mondayFirst** - default true,
+
+**27. weekDaysList**
+
+**28. monthList**
 
 **29. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
 ````javascript
@@ -153,6 +173,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 0.1.0 - forked from https://github.com/rajeshwarpatlolla 
 
 1.0.0 - fully rewrited.
+
+1.1.0 - added calendars 1-7.
 
 ##Contact:
 gmail : dennila2@gmail.com

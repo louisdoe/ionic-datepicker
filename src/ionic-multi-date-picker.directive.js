@@ -198,6 +198,55 @@
             scope.holidays = scope.inputObj.holidays;
           }
 
+          // calendar1
+          scope.calendar1 = [];
+          if (scope.inputObj.calendar1 && scope.inputObj.calendar1 instanceof Array) {
+            scope.calendar1 = scope.inputObj.calendar1;
+            scope.calendar1Class = scope.inputObj.calendar1Class ? scope.inputObj.calendar1Class : 'cal-color-black';
+          }
+
+          // calendar2
+          scope.calendar2 = [];
+          if (scope.inputObj.calendar2 && scope.inputObj.calendar2 instanceof Array) {
+            scope.calendar2 = scope.inputObj.calendar2;
+            scope.calendar2Class = scope.inputObj.calendar2Class ? scope.inputObj.calendar2Class : 'cal-color-violet';
+          }
+
+          // calendar3
+          scope.calendar3 = [];
+          if (scope.inputObj.calendar3 && scope.inputObj.calendar3 instanceof Array) {
+            scope.calendar3 = scope.inputObj.calendar3;
+            scope.calendar3Class = scope.inputObj.calendar3Class ? scope.inputObj.calendar3Class : 'cal-color-blue';
+          }
+
+          // calendar4
+          scope.calendar4 = [];
+          if (scope.inputObj.calendar4 && scope.inputObj.calendar4 instanceof Array) {
+            scope.calendar4 = scope.inputObj.calendar4;
+            scope.calendar4Class = scope.inputObj.calendar4Class ? scope.inputObj.calendar4Class : 'cal-color-orange';
+          }
+
+          // calendar5
+          scope.calendar5 = [];
+          if (scope.inputObj.calendar5 && scope.inputObj.calendar5 instanceof Array) {
+            scope.calendar5 = scope.inputObj.calendar5;
+            scope.calendar5Class = scope.inputObj.calendar5Class ? scope.inputObj.calendar5Class : 'cal-color-ggreen';
+          }
+
+          // calendar6
+          scope.calendar6 = [];
+          if (scope.inputObj.calendar6 && scope.inputObj.calendar6 instanceof Array) {
+            scope.calendar6 = scope.inputObj.calendar6;
+            scope.calendar6Class = scope.inputObj.calendar6Class ? scope.inputObj.calendar6Class : 'cal-color-saha';
+          }
+
+          // calendar7
+          scope.calendar7 = [];
+          if (scope.inputObj.calendar7 && scope.inputObj.calendar7 instanceof Array) {
+            scope.calendar7 = scope.inputObj.calendar7;
+            scope.calendar7Class = scope.inputObj.calendar7Class ? scope.inputObj.calendar7Class : 'cal-color-skyey';
+          }
+
           // methods:
           scope.selectedDates.findDate = function (year, month, date, t) {
             if (this.length > 0) {
@@ -370,6 +419,13 @@
 
           scope.selectedDates.checkClones.call(scope.disabledDates);
           scope.selectedDates.checkClones.call(scope.holidays);
+          scope.selectedDates.checkClones.call(scope.calendar1);
+          scope.selectedDates.checkClones.call(scope.calendar2);
+          scope.selectedDates.checkClones.call(scope.calendar3);
+          scope.selectedDates.checkClones.call(scope.calendar4);
+          scope.selectedDates.checkClones.call(scope.calendar5);
+          scope.selectedDates.checkClones.call(scope.calendar6);
+          scope.selectedDates.checkClones.call(scope.calendar7);
 
           scope.selectedDates.checkDisabledConflicts();
         }
@@ -522,6 +578,9 @@
 
           var lastDay = new Date(viewYear, viewMonth + 1, 0).getDate();
 
+          console.log('cal1');
+          console.log(scope.calendar1);
+
           scope.dayList.zero();
 
           // current month
@@ -530,6 +589,13 @@
 
             var isToday = isCurMonthNow && nowDay === i;
             var isHoliday = scope.selectedDates.findDate.call(scope.holidays, viewYear, viewMonth, i).isPresent;
+            var isCalendar1 = scope.selectedDates.findDate.call(scope.calendar1, viewYear, viewMonth, i).isPresent;
+            var isCalendar2 = scope.selectedDates.findDate.call(scope.calendar2, viewYear, viewMonth, i).isPresent;
+            var isCalendar3 = scope.selectedDates.findDate.call(scope.calendar3, viewYear, viewMonth, i).isPresent;
+            var isCalendar4 = scope.selectedDates.findDate.call(scope.calendar4, viewYear, viewMonth, i).isPresent;
+            var isCalendar5 = scope.selectedDates.findDate.call(scope.calendar5, viewYear, viewMonth, i).isPresent;
+            var isCalendar6 = scope.selectedDates.findDate.call(scope.calendar6, viewYear, viewMonth, i).isPresent;
+            var isCalendar7 = scope.selectedDates.findDate.call(scope.calendar7, viewYear, viewMonth, i).isPresent;
             var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, viewYear, viewMonth, i, true).isPresent;
             var isSelected = scope.selectedDates.findDate(viewYear, viewMonth, i).isPresent && !isDisabled;
 
@@ -545,6 +611,13 @@
                 isToday: isToday,
                 isDisabled: isDisabled,
                 isHoliday: isHoliday,
+                isCalendar1: isCalendar1,
+                isCalendar2: isCalendar2,
+                isCalendar3: isCalendar3,
+                isCalendar4: isCalendar4,
+                isCalendar5: isCalendar5,
+                isCalendar6: isCalendar6,
+                isCalendar7: isCalendar7,
                 isViewMonth: isViewMonth
               }
             });
@@ -564,6 +637,13 @@
           for (var j = 0; j < insertDays; j++) {
 
             isHoliday = scope.selectedDates.findDate.call(scope.holidays, date.year, date.month, lastDay - j).isPresent;
+            isCalendar1 = scope.selectedDates.findDate.call(scope.calendar1, date.year, date.month, lastDay - j).isPresent;
+            isCalendar2 = scope.selectedDates.findDate.call(scope.calendar2, date.year, date.month, lastDay - j).isPresent;
+            isCalendar3 = scope.selectedDates.findDate.call(scope.calendar3, date.year, date.month, lastDay - j).isPresent;
+            isCalendar4 = scope.selectedDates.findDate.call(scope.calendar4, date.year, date.month, lastDay - j).isPresent;
+            isCalendar5 = scope.selectedDates.findDate.call(scope.calendar5, date.year, date.month, lastDay - j).isPresent;
+            isCalendar6 = scope.selectedDates.findDate.call(scope.calendar6, date.year, date.month, lastDay - j).isPresent;
+            isCalendar7 = scope.selectedDates.findDate.call(scope.calendar7, date.year, date.month, lastDay - j).isPresent;
             isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, lastDay - j).isPresent;
             isSelected = scope.selectedDates.findDate(date.year, date.month, lastDay - j).isPresent && !isDisabled;
 
@@ -579,6 +659,13 @@
                 isToday: isToday,
                 isDisabled: isDisabled,
                 isHoliday: isHoliday,
+                isCalendar1: isCalendar1,
+                isCalendar2: isCalendar2,
+                isCalendar3: isCalendar3,
+                isCalendar4: isCalendar4,
+                isCalendar5: isCalendar5,
+                isCalendar6: isCalendar6,
+                isCalendar7: isCalendar7,
                 isViewMonth: isViewMonth
               }
             });
@@ -594,6 +681,13 @@
           date = monthShift(scope.viewYear, scope.viewMonth, '+');
           for (i = 1; i <= daysLeft; i++) {
             isHoliday = scope.selectedDates.findDate.call(scope.holidays, date.year, date.month, i).isPresent;
+            isCalendar1 = scope.selectedDates.findDate.call(scope.calendar1, date.year, date.month, i).isPresent;
+            isCalendar2 = scope.selectedDates.findDate.call(scope.calendar2, date.year, date.month, i).isPresent;
+            isCalendar3 = scope.selectedDates.findDate.call(scope.calendar3, date.year, date.month, i).isPresent;
+            isCalendar4 = scope.selectedDates.findDate.call(scope.calendar4, date.year, date.month, i).isPresent;
+            isCalendar5 = scope.selectedDates.findDate.call(scope.calendar5, date.year, date.month, i).isPresent;
+            isCalendar6 = scope.selectedDates.findDate.call(scope.calendar6, date.year, date.month, i).isPresent;
+            isCalendar7 = scope.selectedDates.findDate.call(scope.calendar7, date.year, date.month, i).isPresent;
             isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, i).isPresent;
             isSelected = scope.selectedDates.findDate(date.year, date.month, i).isPresent && !isDisabled;
             iDate = new Date(date.year, date.month, i);
@@ -608,6 +702,13 @@
                 isToday: isToday,
                 isDisabled: isDisabled,
                 isHoliday: isHoliday,
+                isCalendar1: isCalendar1,
+                isCalendar2: isCalendar2,
+                isCalendar3: isCalendar3,
+                isCalendar4: isCalendar4,
+                isCalendar5: isCalendar5,
+                isCalendar6: isCalendar6,
+                isCalendar7: isCalendar7,
                 isViewMonth: isViewMonth
               }
             });
