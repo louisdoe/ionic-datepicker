@@ -136,7 +136,9 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **22. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
 
-![cal1-cal7](dennila2.github.com/ionic-datepicker/blob/master/dist/imdp-calendars.jpg)
+![cal1-cal7](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-calendars.jpg)
+
+1-7 - calendars, 8 - holidays.
 
 **23. (new) calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
 
