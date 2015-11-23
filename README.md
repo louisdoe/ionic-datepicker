@@ -167,6 +167,14 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **2. input-obj**(Mandatory) - This is an object. We have to pass an object as shown above.
 
+##Screenshots:
+
+![ios popup](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-ios-2.jpg)
+![ios popup dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-ios.jpg)
+![android modal](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-android-2.jpg)
+![android modal dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-android.jpg)
+
+
 ##Video:
 [YouTube](https://youtu.be/RxW628a9U-M)
 
