@@ -151,6 +151,8 @@
 
           scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
 
+          scope.modalFooterClass = scope.inputObj.modalFooterClass ? scope.inputObj.modalFooterClass : 'bar-light';
+
           // Setting the months list. This is useful, if the component needs to use some other language.
           scope.monthsList = [];
           if (scope.inputObj.monthList && scope.inputObj.monthList.length === 12) {

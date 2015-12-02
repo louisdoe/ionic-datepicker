@@ -107,75 +107,77 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **$scope.datepickerObject** is the main object, that we need to pass to the directive. The properties of this object are as follows.
 
-**1. templateType** - the type of dialog. Default is `MODAL`
+**1. templateType** - the type of dialog. Default is `MODAL`.
 
 **2. header** 
 
 **3. headerClass** - ionic css classes.
 
-**4. btnsIsNative** - use ionic-popup-native buttons. Default: true.
+**4. modalFooterClass** - ionic css classes.
 
-**5. btnOk** - caption on Ok button.
+**5. btnsIsNative** - use ionic-popup-native buttons. Default: true.
 
-**6. btnOkClass** - ionic css classes.
+**6. btnOk** - caption on Ok button.
 
-**7. btnCancel** - caption on Cancel button.
+**7. btnOkClass** - ionic css classes.
 
-**8. btnCancelClass** - ionic css classes.
+**8. btnCancel** - caption on Cancel button.
 
-**9. btnTodayShow** - Default false.
+**9. btnCancelClass** - ionic css classes.
 
-**10. btnToday** - caption.
+**10. btnTodayShow** - Default false.
 
-**11. btnTodayClass** - ionic css classes.
+**11. btnToday** - caption.
 
-**12. btnClearShow** - default false.
+**12. btnTodayClass** - ionic css classes.
 
-**13. btnClear** - caption.
+**13. btnClearShow** - default false.
 
-**14. btnClearClass** - ionic css classes.
+**14. btnClear** - caption.
 
-**15. selectType** - SINGLE - one date per calendar, PERIOD  - continuous date period, MULTI - random dates. Default `MULTI`.
+**15. btnClearClass** - ionic css classes.
 
-**16. tglSelectByWeekShow (new)** - 'select by week' toggle, Default false.
+**16. selectType** - SINGLE - one date per calendar, PERIOD  - continuous date period, MULTI - random dates. Default `MULTI`.
 
-**17. isSelectByWeek (new)** - start value, default true.
+**17. tglSelectByWeekShow (new)** - 'select by week' toggle, Default false.
 
-**18. tglSelectByWeekClass (new)** - ionic css classes.
+**18. isSelectByWeek (new)** - start value, default true.
 
-**19. titleSelectByWeekClass (new)** - ionic css classes.
+**19. tglSelectByWeekClass (new)** - ionic css classes.
 
-**20. accessType** - READ | WRITE. Default - `WRITE`.
+**20. titleSelectByWeekClass (new)** - ionic css classes.
 
-**21. errorLanguage** - language of user errors. EN | RU. Default `EN`.
+**21. accessType** - READ | WRITE. Default - `WRITE`.
 
-**22. selectedDates** - array with javascript dates.
+**22. errorLanguage** - language of user errors. EN | RU. Default `EN`.
 
-**23. viewMonth** - first viewed month. Default: current or nearest next month with date.
+**23. selectedDates** - array with javascript dates.
 
-**24. disabledDates** - array with javascript dates of disabled dates.
+**24. viewMonth** - first viewed month. Default: current or nearest next month with date.
 
-**25. holidays** - javascript array with holidays
+**25. disabledDates** - array with javascript dates of disabled dates.
 
-**26. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
+**26. holidays** - javascript array with holidays
+
+**27. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
 
 ![cal1-cal7](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-calendars.jpg)
 
 1-7 - calendars, 8 - holidays.
 
-**27. (new) calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
+**28. (new) calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
 
-**28. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
+**29. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
 
-**29. closeOnSelect** - default false.
+**30. closeOnSelect** - default false.
 
-**30. mondayFirst** - default true,
+**31. mondayFirst** - default true,
 
-**31. weekDaysList**
+**32. weekDaysList**
 
-**32. monthList**
+**33. monthList**
 
-**33. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
+**34. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
 ````javascript
     var retSelectedDates = function (dates) {
       $scope.selectedDates.length = 0;
@@ -196,9 +198,11 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 1.0.0 - fully rewrited.
 
-1.1.0 - added calendars 1-7.
+1.1.0 - added calendars 1-7 to popup.
 
 1.2.0 - added 'select by week' toggle.
+
+1.2.1 - added calendars 1-7 to modal, added modalFooterClass.
 
 ##Contact:
 gmail : dennila2@gmail.com
