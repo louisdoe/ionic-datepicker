@@ -9,9 +9,9 @@
   angular.module('ionic-multi-date-picker')
     .directive('ionicMultiDatePicker', IonicMultiDatePicker);
 
-  IonicMultiDatePicker.$inject = ['$ionicPopup', '$ionicModal', '$timeout', 'IonicMultiDatePickerService'];
+  IonicMultiDatePicker.$inject = ['$ionicModal', '$ionicPopup', '$ionicGesture', '$timeout', 'IonicMultiDatePickerService'];
 
-  function IonicMultiDatePicker($ionicPopup, $ionicModal, $timeout, IonicMultiDatePickerService) {
+  function IonicMultiDatePicker($ionicModal, $ionicPopup, $ionicGesture, $timeout, IonicMultiDatePickerService) {
     return {
       restrict: 'AE',
       replace: true,
@@ -78,9 +78,10 @@
                   console.debug('code: ' + code);
                   err = ERRORS.UNKNOWN_ERROR;
                   scope.errors.UNKNOWN_ERROR = ERRORS.UNKNOWN_ERROR;
+                } else {
+                  // error already in array
                 }
                 this.length();
-                console.error(err);
               },
               remove: function (code) {
                 if (scope.errors.hasOwnProperty(code) && ERRORS.hasOwnProperty(code)) {
@@ -136,6 +137,13 @@
             scope.btnClearClass = scope.inputObj.btnClearClass ? scope.inputObj.btnClearClass : 'button-stable cal-button';
           }
           scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? scope.inputObj.selectType : SELECT_TYPE.MULTI;
+
+          scope.tglSelectByWeekShow = scope.inputObj.tglSelectByWeekShow === true;
+          scope.selectByWeek = {is: !!(scope.inputObj.isSelectByWeek === true && scope.tglSelectByWeekShow === true)};
+          console.log(scope.inputObj.isSelectByWeek, scope.tglSelectByWeekShow, scope.isSelectByWeek);
+          scope.tglSelectByWeekClass = scope.inputObj.tglSelectByWeekClass ? scope.inputObj.tglSelectByWeekClass : 'toggle-energized';
+          scope.titleSelectByWeekClass = scope.inputObj.titleSelectByWeekClass ? scope.inputObj.titleSelectByWeekClass : 'energized energized-border';
+
           scope.accessType = (scope.inputObj.accessType && ACCESS_TYPE.hasOwnProperty(scope.inputObj.accessType) > -1) ? scope.inputObj.accessType : ACCESS_TYPE.WRITE;
           scope.showErrors = (scope.inputObj.showErrors && scope.inputObj.showErrors !== true) ? false : true;
           scope.errorLanguage = (scope.inputObj.errorLanguage && ERROR_LANGUAGE.hasOwnProperty(scope.inputObj.errorLanguage)) ? scope.inputObj.errorLanguage : ERROR_LANGUAGE.EN;
@@ -742,24 +750,37 @@
         };
 
         // date-cell onTap:
-        scope.dateSelected = function (date) {
+        scope.dateSelected = function (date, row) {
           if (scope.accessType == ACCESS_TYPE.WRITE) {
-            var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, date.date).isPresent;
-            if (!isDisabled) {
-              scope.selectedDates.addRemove(date.year, date.month, date.date);
-              scope.dayList.repaint();
-              scope.selectedDates.checkPeriod();
-              if (scope.closeOnSelect) {
-                btnOk();
-                if (scope.templateType === TEMPLATE_TYPE.POPUP) {
-                  $timeout(scope.popup.close, 300);
-                } else {
-                  $timeout(scope.closeModal, 300);
-                }
+            if (!scope.selectByWeek.is) {
+              selectDay(date)
+            } else {
+              for (var i = 0; i < 7; i++) {
+                var d = scope.dayList[row + i];
+                selectDay(d);
+              }
+            }
+
+            if (scope.closeOnSelect) {
+              btnOk();
+              if (scope.templateType === TEMPLATE_TYPE.POPUP) {
+                $timeout(scope.popup.close, 300);
+              } else {
+                $timeout(scope.closeModal, 300);
               }
             }
           }
         };
+
+        function selectDay(date) {
+          var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, date.date).isPresent;
+          if (!isDisabled) {
+            scope.selectedDates.addRemove(date.year, date.month, date.date);
+            scope.dayList.repaint();
+            scope.selectedDates.checkPeriod();
+
+          }
+        }
 
         function monthShift(year, month, direction) {
           switch (direction) {

@@ -235,7 +235,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: -1px;
       left: 14px;
-      //background-color: $MDP-BLUE;
     }
   }
 
@@ -243,7 +242,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: 3px;
       left: 23px;
-      //background-color: $MDP-YELLOW;
     }
   }
 
@@ -251,7 +249,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: 12px;
       left: 27px;
-      //background-color: $MDP-GRAY;
     }
   }
 
@@ -259,7 +256,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: 22px;
       left: 24px;
-      //background-color: $MDP-VIOLET;
     }
   }
 
@@ -267,7 +263,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: 25px;
       left: 14px;
-      //background-color: $MDP-SAHA;
     }
   }
 
@@ -275,7 +270,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: 22px;
       left: 5px;
-      //background-color: $MDP-SKYEY;
     }
   }
 
@@ -283,7 +277,6 @@ $CIRCLE-D: 25px;
     &:before {
       top: 12px;
       left: 1px;
-      //background-color: $MDP-BLACK;
     }
   }
 
@@ -372,6 +365,10 @@ $CIRCLE-D: 25px;
     padding: 20px;
     margin: 0 auto;
     color: $MDP-RED;
+  }
+
+  .tgl-period div{
+    margin: 0;
   }
 
   .view-month {
