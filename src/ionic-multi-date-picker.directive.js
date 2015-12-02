@@ -47,6 +47,7 @@
         var ERROR_LANGUAGE = {EN: 'EN', RU: 'RU'};
         var TEMPLATE_TYPE = {POPUP: 'POPUP', MODAL: 'MODAL'};
         var CONFLICT_S_D = {DISABLED: 'DISABLED', SELECTED: 'SELECTED'};
+        var SELECT_BY_WEEK_MODE = {INVERSION: 'INVERSION', NORMAL: 'NORMAL'};
 
         function start() {
           initErrors();
@@ -139,8 +140,8 @@
           scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? scope.inputObj.selectType : SELECT_TYPE.MULTI;
 
           scope.tglSelectByWeekShow = scope.inputObj.tglSelectByWeekShow === true;
+          scope.selectByWeekMode = (scope.inputObj.selectByWeekMode && scope.inputObj.selectByWeekMode === SELECT_BY_WEEK_MODE.INVERSION) ? SELECT_BY_WEEK_MODE.INVERSION : SELECT_BY_WEEK_MODE.NORMAL;
           scope.selectByWeek = {is: !!(scope.inputObj.isSelectByWeek === true && scope.tglSelectByWeekShow === true)};
-          console.log(scope.inputObj.isSelectByWeek, scope.tglSelectByWeekShow, scope.isSelectByWeek);
           scope.tglSelectByWeekClass = scope.inputObj.tglSelectByWeekClass ? scope.inputObj.tglSelectByWeekClass : 'toggle-energized';
           scope.titleSelectByWeekClass = scope.inputObj.titleSelectByWeekClass ? scope.inputObj.titleSelectByWeekClass : 'energized energized-border';
 
@@ -258,7 +259,7 @@
           }
 
           // methods:
-          scope.selectedDates.findDate = function (year, month, date, t) {
+          scope.selectedDates.findDate = function (year, month, date) {
             if (this.length > 0) {
               for (var i = 0; i < this.length; i++) {
                 var d = this[i];
@@ -270,7 +271,7 @@
             return {isPresent: false};
           };
 
-          scope.selectedDates.addRemove = function (year, month, date) {
+          scope.selectedDates.addRemove = function (year, month, date, state) {
             var find = this.findDate(year, month, date);
 
             switch (scope.selectType) {
@@ -284,10 +285,18 @@
                 break;
 
               default:
-                if (find.isPresent) {
-                  this.splice(find.i, 1);
+                if (state === undefined) {
+                  if (find.isPresent) {
+                    this.splice(find.i, 1);
+                  } else {
+                    this.push(new Date(year, month, date));
+                  }
                 } else {
-                  this.push(new Date(year, month, date));
+                  if (find.isPresent && !state) {
+                    this.splice(find.i, 1);
+                  } else if (!find.isPresent && state) {
+                    this.push(new Date(year, month, date));
+                  }
                 }
             }
           };
@@ -757,9 +766,12 @@
             if (!scope.selectByWeek.is) {
               selectDay(date)
             } else {
+              if (scope.selectByWeekMode === SELECT_BY_WEEK_MODE.NORMAL) {
+                var state = !scope.selectedDates.findDate(date.year, date.month, date.date).isPresent;
+              }
               for (var i = 0; i < 7; i++) {
                 var d = scope.dayList[row + i];
-                selectDay(d);
+                selectDay(d, state);
               }
             }
 
@@ -774,10 +786,10 @@
           }
         };
 
-        function selectDay(date) {
+        function selectDay(date, state) {
           var isDisabled = scope.selectedDates.findDate.call(scope.disabledDates, date.year, date.month, date.date).isPresent;
           if (!isDisabled) {
-            scope.selectedDates.addRemove(date.year, date.month, date.date);
+            scope.selectedDates.addRemove(date.year, date.month, date.date, state);
             scope.dayList.repaint();
             scope.selectedDates.checkPeriod();
 
