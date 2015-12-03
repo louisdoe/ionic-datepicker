@@ -5,82 +5,8 @@
   <ion-content>
     <div>
 
-      <div class="navigator row no-padding">
-        <div class="col col-10 left-arrow" ng-click="prevMonth()">
-          <button class="button-clear">
-            <i class="icon icon-chevron icon-chevron-left ion-chevron-left"></i>
-          </button>
-        </div>
-        <div class="col col-80 view-month text-center">
-          {{ monthsList[viewMonth] }} {{ viewYear }}
-        </div>
-        <div class="col col-10" ng-click="nextMonth()">
-          <button class="button-clear">
-            <i class="icon icon-chevron icon-chevron-right ion-chevron-right"></i>
-          </button>
-        </div>
-      </div>
+      <ng-include src="'template-body.html'"></ng-include>
 
-      <label class="month-year-selector item item-input">
-        <input type="month" ng-model="monthYear.select" ng-change="monthYearSelect()">
-      </label>
-
-      <div class="calendar-grid">
-        <div class="row">
-          <div class="col week-days"
-               ng-class="{'weekend': ($index == 5 || $index == 6)}"
-               ng-repeat="weekName in weekNames track by $index"
-               ng-bind="weekName">
-          </div>
-        </div>
-        <div class="date-grid">
-          <div class="row date-row"
-               ng-repeat="row in rows track by $index">
-            <div class="col no-padding date-col"
-                 ng-repeat="col in cols track by $index"
-                 ng-class="{'selected': (dayList[row + $index].style.isSelected && accessType == 'WRITE')
-              , 'selected-light': (dayList[row + $index].style.isSelected && accessType == 'READ')
-              , 'today' : (dayList[row + $index].style.isToday)
-              , 'weekend': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month)
-              , 'holiday': (dayList[row + $index].style.isHoliday)
-              , 'disabledDate': (dayList[row + $index].style.isDisabled)
-              , 'not-cur-month': (!dayList[row + $index].style.isViewMonth)}">
-              <div class="date-cell"
-                   ng-click="dateSelected(dayList[row + $index], row)">
-                {{ dayList[row + col].date }}
-              </div>
-
-              <div class="calendar-1 ng-hide" ng-class="calendar1Class" ng-show="dayList[row + $index].style.isCalendar1"></div>
-              <div class="calendar-2 ng-hide" ng-class="calendar2Class" ng-show="dayList[row + $index].style.isCalendar2"></div>
-              <div class="calendar-3 ng-hide" ng-class="calendar3Class" ng-show="dayList[row + $index].style.isCalendar3"></div>
-              <div class="calendar-4 ng-hide" ng-class="calendar4Class" ng-show="dayList[row + $index].style.isCalendar4"></div>
-              <div class="calendar-5 ng-hide" ng-class="calendar5Class" ng-show="dayList[row + $index].style.isCalendar5"></div>
-              <div class="calendar-6 ng-hide" ng-class="calendar6Class" ng-show="dayList[row + $index].style.isCalendar6"></div>
-              <div class="calendar-7 ng-hide" ng-class="calendar7Class" ng-show="dayList[row + $index].style.isCalendar7"></div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="errors">
-        <div ng-repeat="error in errors">
-          {{ error[errorLanguage] }}
-        </div>
-      </div>
-
-    </div>
-
-    <div class="tgl-period ng-hide" ng-show="tglSelectByWeekShow && accessType == 'WRITE' && selectType != 'SINGLE'">
-      <div class="item item-toggle" ng-class="titleSelectByWeekClass">
-        {{ tglSelectByWeek }}
-        <label class="toggle" ng-class="tglSelectByWeekClass">
-          <input type="checkbox" ng-model="selectByWeek.is">
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </div>
     </div>
 
   </ion-content>

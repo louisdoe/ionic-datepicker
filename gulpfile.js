@@ -14,7 +14,7 @@ var path = {
 };
 
 gulp.task('html2js', function () {
-  return gulp.src(['./src/ionic-multi-date-picker-popup.html', './src/ionic-multi-date-picker-modal.html'])
+  return gulp.src(['./src/*.html'])
     .pipe(minifyHtml())
     .pipe(ngHtml2Js({
       moduleName: "ionic-multi-date-picker.templates"

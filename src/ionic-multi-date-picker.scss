@@ -173,13 +173,14 @@ $CIRCLE-D: 25px;
 
   .month-year-selector {
     position: fixed;
+    right: 60px;
     top: 0;
     left: 60px;
-    right: 60px;
     //max-width: 100px;
     background-color: transparent;
     color: transparent;
     border-width: 0;
+    max-width: 40%;
     input {
       color: transparent;
     }

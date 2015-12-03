@@ -216,6 +216,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 1.2.3 - title of tglSelectByWeek.
 
+1.2.4 - fix.
+
 ##Contact:
 gmail : dennila2@gmail.com
 
