@@ -140,6 +140,8 @@
           scope.selectType = (scope.inputObj.selectType && SELECT_TYPE.hasOwnProperty(scope.inputObj.selectType) > -1 ) ? scope.inputObj.selectType : SELECT_TYPE.MULTI;
 
           scope.tglSelectByWeekShow = scope.inputObj.tglSelectByWeekShow === true;
+          scope.tglSelectByWeek = scope.inputObj.tglSelectByWeek ? scope.inputObj.tglSelectByWeek : 'Select by week';
+          scope.selectByWeekMode = (scope.inputObj.selectByWeekMode && scope.inputObj.selectByWeekMode === SELECT_BY_WEEK_MODE.INVERSION) ? SELECT_BY_WEEK_MODE.INVERSION : SELECT_BY_WEEK_MODE.NORMAL;
           scope.selectByWeekMode = (scope.inputObj.selectByWeekMode && scope.inputObj.selectByWeekMode === SELECT_BY_WEEK_MODE.INVERSION) ? SELECT_BY_WEEK_MODE.INVERSION : SELECT_BY_WEEK_MODE.NORMAL;
           scope.selectByWeek = {is: !!(scope.inputObj.isSelectByWeek === true && scope.tglSelectByWeekShow === true)};
           scope.tglSelectByWeekClass = scope.inputObj.tglSelectByWeekClass ? scope.inputObj.tglSelectByWeekClass : 'toggle-energized';
