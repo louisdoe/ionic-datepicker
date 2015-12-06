@@ -320,6 +320,18 @@ $CIRCLE-D: 25px;
       border: 2px solid $MDP-SKYEY;
     }
   }
+
+  .not-empty:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    z-index: -1;
+    width: $CIRCLE-D;
+    height: $CIRCLE-D;
+    border-radius: 50%;
+    border: 1px solid $MDP-GRAY;}
+
   .selected, .selected-light {
     color: $MDP-WHITE !important;
     &:after {
@@ -367,6 +379,7 @@ $CIRCLE-D: 25px;
     }
   }
 
+  /* calendars names */
   .calendar-names {
     position: relative;
     max-width: 260px;
@@ -385,7 +398,7 @@ $CIRCLE-D: 25px;
         top: -12px;
         width: 47px;
         height: 47px;
-        background-color: #f0e000;
+        border: 1px solid $MDP-GRAY;
         border-radius: 50%;
         z-index: -1;
       }
@@ -478,9 +491,8 @@ $CIRCLE-D: 25px;
       top: 37px;
       left: 93px;
     }
-
-
   }
+
   /* errors */
   .errors {
     max-width: 260px;

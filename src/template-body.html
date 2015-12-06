@@ -36,6 +36,9 @@
               , 'today' : (dayList[row + $index].style.isToday)
               , 'weekend': ((dayList[row + $index].day == 6 || dayList[row + $index].day == 0) && viewMonth == dayList[row + $index].month)
               , 'disabledDate': (dayList[row + $index].style.isDisabled)
+
+              , 'not-empty': !(dayList[row + $index].style.isToday || dayList[row + $index].style.isSelected || dayList[row + $index].style.isDisabled) && (dayList[row + $index].style.isHoliday || dayList[row + $index].style.isCalendar1 || dayList[row + $index].style.isCalendar2 || dayList[row + $index].style.isCalendar3 || dayList[row + $index].style.isCalendar4 || dayList[row + $index].style.isCalendar5 || dayList[row + $index].style.isCalendar6 || dayList[row + $index].style.isCalendar7)
+
               , 'not-cur-month': (!dayList[row + $index].style.isViewMonth)}">
         <div class="date-cell"
              ng-click="dateSelected(dayList[row + $index], row)">

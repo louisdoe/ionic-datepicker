@@ -16,6 +16,7 @@ and fully rewrited.
 
 ![android modal](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android-2.jpg)
 ![android modal dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android.jpg)
+![calendar-convention section and "select by week" mode](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-calendarNames.jpg)
 
 ##Video:
 [YouTube](https://youtu.be/RxW628a9U-M)
@@ -173,9 +174,9 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **25. errorLanguage** - language of user errors. EN | RU. Default `EN`.
 
-**26. (new) fromDate: new Date(2015, 9),
+**26. (new) fromDate:** new Date(2015, 9),
 
-**27. (new) toDate: new Date(2016, 1),
+**27. (new) toDate:** new Date(2016, 1),
 
 **28. selectedDates** - array with javascript dates.
 
@@ -239,6 +240,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 1.2.4 - fix.
 
 1.2.5 - added 'fromDate' and 'toDate', holidaysClass, calendars names and calendar-convention section.
+
+1.2.6 - stylized.
 
 ##Contact:
 gmail : dennila2@gmail.com
