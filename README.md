@@ -21,7 +21,7 @@ and fully rewrited.
 ##Video:
 [YouTube](https://youtu.be/RxW628a9U-M)
 
-[YouTube](https://youtu.be/rfsGGA_4r-M)
+[YouTube - select by week and calendar-convention section](https://youtu.be/Bg0YctJVCME)
 
 ##Prerequisites.
 
@@ -227,25 +227,27 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 1.0.0 - fully rewrited.
 
-1.1.0 - added calendars 1-7 to popup.
+1.1.0 - added: calendars 1-7 to popup.
 
-1.2.0 - added 'select by week' toggle.
+1.2.0 - added: 'select by week' toggle.
 
-1.2.1 - added calendars 1-7 to modal, added modalFooterClass.
+1.2.1 - added: calendars 1-7 to modal, added modalFooterClass.
 
-1.2.2 - 2 mode on "select by week": inverse and normal. 
+1.2.2 - 2 mode of "select by week": inverse and normal. 
 
 1.2.3 - title of tglSelectByWeek.
 
 1.2.4 - fix.
 
-1.2.5 - added 'fromDate' and 'toDate', holidaysClass, calendars names and calendar-convention section.
+1.2.5 - added: 'fromDate' and 'toDate', holidaysClass, calendars names and calendar-convention section.
 
 1.2.6 - stylized.
 
+1.2.7 - added: on-hold - day details.
+
 ##Contact:
-gmail : dennila2@gmail.com
+gmail: dennila2@gmail.com
 
-github : https://github.com/dennila2
+github: https://github.com/dennila2
 
-Comment or Rate it : http://market.ionic.io/plugins/ionic-multi-date-picker
+Comment and / or Rate it : http://market.ionic.io/plugins/ionic-multi-date-picker

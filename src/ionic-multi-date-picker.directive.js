@@ -334,6 +334,8 @@
             }
           }
 
+          scope.onRelease();
+
           // methods:
           scope.selectedDates.findDate = function (year, month, date) {
             if (this.length > 0) {
@@ -843,8 +845,8 @@
           }
         };
 
-        // date-cell onTap:
-        scope.dateSelected = function (date, row) {
+        // date-cell ng-click:
+        scope.onTap = function (date, row) {
           if (scope.accessType == ACCESS_TYPE.WRITE) {
             if (!scope.selectByWeek.is) {
               selectDay(date)
@@ -867,6 +869,31 @@
               }
             }
           }
+        };
+
+        scope.onHold = function (date) {
+          scope.holded = {
+            is: true,
+            isSelected: date.style.isSelected,
+            isDisabled: date.style.isDisabled,
+            isToday: date.style.isToday,
+            isHoliday: date.style.isHoliday,
+            isCalendar1: date.style.isCalendar1,
+            isCalendar2: date.style.isCalendar2,
+            isCalendar3: date.style.isCalendar3,
+            isCalendar4: date.style.isCalendar4,
+            isCalendar5: date.style.isCalendar5,
+            isCalendar6: date.style.isCalendar6,
+            isCalendar7: date.style.isCalendar7,
+            date: date.date
+          };
+        };
+
+        scope.onRelease = function (date) {
+          scope.holded = {
+            is: false,
+            date: 'date'
+          };
         };
 
         function selectDay(date, state) {

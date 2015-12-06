@@ -41,7 +41,9 @@
 
               , 'not-cur-month': (!dayList[row + $index].style.isViewMonth)}">
         <div class="date-cell"
-             ng-click="dateSelected(dayList[row + $index], row)">
+             on-hold="onHold(dayList[row + $index])"
+             on-release="onRelease(dayList[row + $index])"
+             on-tap="onTap(dayList[row + $index], row)">
           {{ dayList[row + col].date }}
         </div>
         <!-- 'holiday': (dayList[row + $index].style.isHoliday) -->
@@ -67,61 +69,71 @@
 </div>
 
 <div class="calendar-names ng-hide" ng-show="namesCount > 0">
-  <div class="calendars-point">date</div>
+  <div class="calendars-point"
+       ng-class="{'calendars-point-today': (holded.is && holded.isToday), 'calendars-point-selected': (holded.is && holded.isSelected), 'calendars-point-disabled': (holded.is && holded.isDisabled), 'calendars-point-contour': (!(holded.isToday || holded.isSelected || holded.isDisabled))}"
+    >{{ holded.date }}</div>
   <div class="holiday-point ng-hide"
-       ng-show="calendarNames[0].name.length > 0"
+       ng-show="calendarNames[0].name.length > 0 && (!holded.is || holded.isHoliday)"
        ng-class="calendarNames[0].class">.
   </div>
   <div class="calendar-1-point ng-hide"
-       ng-show="calendarNames[1].name.length > 0"
+       ng-show="calendarNames[1].name.length > 0 && (!holded.is || holded.isCalendar1)"
        ng-class="calendarNames[1].class">.
   </div>
   <div class="calendar-2-point ng-hide"
-       ng-show="calendarNames[2].name.length > 0"
+       ng-show="calendarNames[2].name.length > 0 && (!holded.is || holded.isCalendar2)"
        ng-class="calendarNames[2].class">.
   </div>
   <div class="calendar-3-point ng-hide"
-       ng-show="calendarNames[3].name.length > 0"
+       ng-show="calendarNames[3].name.length > 0 && (!holded.is || holded.isCalendar3)"
        ng-class="calendarNames[3].class">.
   </div>
   <div class="calendar-4-point ng-hide"
-       ng-show="calendarNames[4].name.length > 0"
+       ng-show="calendarNames[4].name.length > 0 && (!holded.is || holded.isCalendar4)"
        ng-class="calendarNames[4].class">.
   </div>
   <div class="calendar-5-point ng-hide"
-       ng-show="calendarNames[5].name.length > 0"
+       ng-show="calendarNames[5].name.length > 0 && (!holded.is || holded.isCalendar5)"
        ng-class="calendarNames[5].class">.
   </div>
   <div class="calendar-6-point ng-hide"
-       ng-show="calendarNames[6].name.length > 0"
+       ng-show="calendarNames[6].name.length > 0 && (!holded.is || holded.isCalendar6)"
        ng-class="calendarNames[6].class">.
   </div>
   <div class="calendar-7-point ng-hide"
-       ng-show="calendarNames[7].name.length > 0"
+       ng-show="calendarNames[7].name.length > 0 && (!holded.is || holded.isCalendar7)"
        ng-class="calendarNames[7].class">.
   </div>
-  <div class="holiday-name">
+  <div class="holiday-name ng-hide"
+       ng-show="calendarNames[0].name.length > 0 && (!holded.is || holded.isHoliday)">
     {{ calendarNames[0].name }}
   </div>
-  <div class="calendar-1-name">
+  <div class="calendar-1-name ng-hide"
+       ng-show="calendarNames[1].name.length > 0 && (!holded.is || holded.isCalendar1)">
     {{ calendarNames[1].name }}
   </div>
-  <div class="calendar-2-name">
+  <div class="calendar-2-name ng-hide"
+       ng-show="calendarNames[2].name.length > 0 && (!holded.is || holded.isCalendar2)">
     {{ calendarNames[2].name }}
   </div>
-  <div class="calendar-3-name">
+  <div class="calendar-3-name ng-hide"
+       ng-show="calendarNames[3].name.length > 0 && (!holded.is || holded.isCalendar3)">
     {{ calendarNames[3].name }}
   </div>
-  <div class="calendar-4-name">
+  <div class="calendar-4-name ng-hide"
+       ng-show="calendarNames[4].name.length > 0 && (!holded.is || holded.isCalendar4)">
     {{ calendarNames[4].name }}
   </div>
-  <div class="calendar-5-name">
+  <div class="calendar-5-name ng-hide"
+       ng-show="calendarNames[5].name.length > 0 && (!holded.is || holded.isCalendar5)">
     {{ calendarNames[5].name }}
   </div>
-  <div class="calendar-6-name">
+  <div class="calendar-6-name ng-hide"
+       ng-show="calendarNames[6].name.length > 0 && (!holded.is || holded.isCalendar6)">
     {{ calendarNames[6].name }}
   </div>
-  <div class="calendar-7-name">
+  <div class="calendar-7-name ng-hide"
+       ng-show="calendarNames[7].name.length > 0 && (!holded.is || holded.isCalendar7)">
     {{ calendarNames[7].name }}
   </div>
 </div>
