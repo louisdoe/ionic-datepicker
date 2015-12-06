@@ -188,7 +188,7 @@ $CIRCLE-D: 25px;
 
   /* calendar */
   .calendar-grid {
-    margin: 50px auto 0;
+    margin: 0 auto 0;
     max-width: 260px;
   }
   .week-days {
@@ -200,23 +200,23 @@ $CIRCLE-D: 25px;
     color: $MDP-RED;
   }
 
-  .holiday {
+  /*.holiday {
     &:before {
       position: absolute;
       content: '';
       top: 3px;
       left: 5px;
+      background-color: $MDP-HOLIDAY;
       z-index: 0;
       width: 8px;
       height: 8px;
-      background-color: $MDP-HOLIDAY;
       border: 2px solid $MDP-WHITE;
       border-radius: 50%;
     }
-  }
+  }*/
 
-  .calendar-1, .calendar-2, .calendar-3, .calendar-4,
-  .calendar-5, .calendar-6, .calendar-7  {
+  .holidays, .calendar-1, .calendar-2, .calendar-3, .calendar-4,
+  .calendar-5, .calendar-6, .calendar-7 {
     position: absolute;
     top: 0;
     left: 0;
@@ -229,6 +229,13 @@ $CIRCLE-D: 25px;
       height: 8px;
       border: 2px solid $MDP-WHITE;
       border-radius: 50%;
+    }
+  }
+
+  .holidays {
+    &:before {
+      top: 3px;
+      left: 5px;
     }
   }
 
@@ -360,15 +367,129 @@ $CIRCLE-D: 25px;
     }
   }
 
+  .calendar-names {
+    position: relative;
+    max-width: 260px;
+    height: 87px;
+    margin:0 auto;
+
+    .calendars-point {
+      position: absolute;
+      left: 110px;
+      top: 31px;
+      z-index: 1;
+      &:before {
+        position: absolute;
+        content: '';
+        left: -10px;
+        top: -12px;
+        width: 47px;
+        height: 47px;
+        background-color: #f0e000;
+        border-radius: 50%;
+        z-index: -1;
+      }
+    }
+
+    .holiday-name, .calendar-1-name, .calendar-2-name, .calendar-3-name,
+    .calendar-4-name, .calendar-5-name, .calendar-6-name, .calendar-7-name {
+      position: absolute;
+      width: 40%;
+      text-align: center;
+    }
+
+    .holiday-name {
+      top: 16px;
+      left: 5px;
+    }
+    .calendar-1-name {
+      top: 0;
+      left: 74px;
+    }
+    .calendar-2-name {
+      top: 16px;
+      left: 144px;
+    }
+    .calendar-3-name {
+      top: 32px;
+      left: 149px;
+    }
+    .calendar-4-name {
+      top: 48px;
+      left: 144px;
+    }
+    .calendar-5-name {
+      top: 64px;
+      left: 74px;
+    }
+    .calendar-6-name {
+      top: 48px;
+      left: 5px;
+    }
+    .calendar-7-name {
+      top: 32px;
+      left: 0;
+    }
+
+    .holiday-point, .calendar-1-point, .calendar-2-point, .calendar-3-point,
+    .calendar-4-point, .calendar-5-point, .calendar-6-point, .calendar-7-point {
+      position: absolute;
+      color: transparent;
+      &:before {
+        position: absolute;
+        content: '';
+        width: 12px;
+        height: 12px;
+        border: 3px solid $MDP-WHITE;
+        border-radius: 50%;
+        z-index: 2;
+      }
+    }
+
+    .holiday-point {
+      top: 20px;
+      left: 100px;
+    }
+    .calendar-1-point {
+      top: 14px;
+      left: 118px;
+    }
+    .calendar-2-point:before {
+      top: 20px;
+      left: 136px;
+    }
+    .calendar-3-point:before {
+      top: 37px;
+      left: 143px;
+    }
+    .calendar-4-point:before {
+      top: 53px;
+      left: 136px;
+    }
+    .calendar-5-point:before {
+      top: 59px;
+      left: 119px;
+    }
+    .calendar-6-point:before {
+      top: 53px;
+      left: 100px;
+    }
+    .calendar-7-point:before {
+      top: 37px;
+      left: 93px;
+    }
+
+
+  }
   /* errors */
   .errors {
     max-width: 260px;
-    padding: 20px;
+    padding: 10px;
     margin: 0 auto;
     color: $MDP-RED;
   }
 
-  .tgl-period div{
+  .tgl-period div {
     margin: 0;
   }
 

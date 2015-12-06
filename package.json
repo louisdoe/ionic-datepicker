@@ -1,6 +1,6 @@
 {
   "name": "ionic-multi-date-picker",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A multi date picker for Ionic framework",
   "main": [
     "./dist/ionic-multi-date-picker.bundle.min.js"

@@ -7,7 +7,7 @@
   'use strict';
 
   angular.module('ionic-multi-date-picker')
-    .service('IonicMultiDatePickerService',IonicMultiDatePickerService);
+    .service('IonicMultiDatePickerService', IonicMultiDatePickerService);
 
   IonicMultiDatePickerService.$inject = [];
   function IonicMultiDatePickerService(){

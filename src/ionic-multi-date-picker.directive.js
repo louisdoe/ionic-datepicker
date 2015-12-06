@@ -9,12 +9,20 @@
   angular.module('ionic-multi-date-picker')
     .directive('ionicMultiDatePicker', IonicMultiDatePicker);
 
-  IonicMultiDatePicker.$inject = ['$ionicModal', '$ionicPopup', '$ionicGesture', '$timeout', 'IonicMultiDatePickerService'];
+  IonicMultiDatePicker.$inject = ['$ionicModal', '$ionicPopup', '$timeout', 'IonicMultiDatePickerService'];
 
-  function IonicMultiDatePicker($ionicModal, $ionicPopup, $ionicGesture, $timeout, IonicMultiDatePickerService) {
+  function IonicMultiDatePicker($ionicModal, $ionicPopup, $timeout, IonicMultiDatePickerService) {
     return {
       restrict: 'AE',
-      replace: true,
+      replace: false,
+      /*template: function (elem, attrs) {
+       console.log('elem');
+       console.log(elem);
+       if (attrs.calendar === 'true') {
+       return '<div>date-picker</div><div>{{ inputObj.header }}</div>'
+       }
+       return '';
+       },*/
       scope: {
         inputObj: "=inputObj"
       },
@@ -150,6 +158,19 @@
           scope.accessType = (scope.inputObj.accessType && ACCESS_TYPE.hasOwnProperty(scope.inputObj.accessType) > -1) ? scope.inputObj.accessType : ACCESS_TYPE.WRITE;
           scope.showErrors = (scope.inputObj.showErrors && scope.inputObj.showErrors !== true) ? false : true;
           scope.errorLanguage = (scope.inputObj.errorLanguage && ERROR_LANGUAGE.hasOwnProperty(scope.inputObj.errorLanguage)) ? scope.inputObj.errorLanguage : ERROR_LANGUAGE.EN;
+
+          if (scope.inputObj.fromDate && Date.prototype.isPrototypeOf(scope.inputObj.fromDate)) {
+            scope.fromYearMonth = scope.inputObj.fromDate.getFullYear() * 100 + scope.inputObj.fromDate.getMonth();
+          } else {
+            scope.fromYearMonth = undefined;
+          }
+
+          if (scope.inputObj.toDate && Date.prototype.isPrototypeOf(scope.inputObj.toDate)) {
+            scope.toYearMonth = scope.inputObj.toDate.getFullYear() * 100 + scope.inputObj.toDate.getMonth();
+          } else {
+            scope.toYearMonth = undefined;
+          }
+
           scope.conflictSD = (scope.inputObj.conflictSelectedDisabled && CONFLICT_S_D.hasOwnProperty(scope.inputObj.conflictSelectedDisabled)) ? scope.inputObj.conflictSelectedDisabled : CONFLICT_S_D.DISABLED;
 
           scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
@@ -205,59 +226,112 @@
             scope.disabledDates = scope.inputObj.disabledDates;
           }
 
+          scope.calendarNames = [];
+
           // holidays
           scope.holidays = [];
           if (scope.inputObj.holidays && scope.inputObj.holidays instanceof Array) {
             scope.holidays = scope.inputObj.holidays;
+            scope.holidaysClass = scope.inputObj.holidaysClass && scope.inputObj.holidaysClass.length > 0 ? scope.inputObj.holidaysClass : 'cal-color-holiday';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.holidaysName && scope.inputObj.holidaysName.length > 0,
+              class: scope.holidaysClass,
+              name: scope.inputObj.holidaysName
+            });
           }
 
           // calendar1
           scope.calendar1 = [];
           if (scope.inputObj.calendar1 && scope.inputObj.calendar1 instanceof Array) {
             scope.calendar1 = scope.inputObj.calendar1;
-            scope.calendar1Class = scope.inputObj.calendar1Class ? scope.inputObj.calendar1Class : 'cal-color-black';
+            scope.calendar1Class = scope.inputObj.calendar1Class && scope.inputObj.calendar1Class.length > 0 ? scope.inputObj.calendar1Class : 'cal-color-black';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar1Name && scope.inputObj.calendar1Name.length > 0,
+              class: scope.calendar1Class,
+              name: scope.inputObj.calendar1Name
+            });
           }
 
           // calendar2
           scope.calendar2 = [];
           if (scope.inputObj.calendar2 && scope.inputObj.calendar2 instanceof Array) {
             scope.calendar2 = scope.inputObj.calendar2;
-            scope.calendar2Class = scope.inputObj.calendar2Class ? scope.inputObj.calendar2Class : 'cal-color-violet';
+            scope.calendar2Class = scope.inputObj.calendar2Class && scope.inputObj.calendar2Class.length > 0 ? scope.inputObj.calendar2Class : 'cal-color-violet';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar2Name && scope.inputObj.calendar2Name.length > 0,
+              class: scope.calendar2Class,
+              name: scope.inputObj.calendar2Name
+            });
           }
 
           // calendar3
           scope.calendar3 = [];
           if (scope.inputObj.calendar3 && scope.inputObj.calendar3 instanceof Array) {
             scope.calendar3 = scope.inputObj.calendar3;
-            scope.calendar3Class = scope.inputObj.calendar3Class ? scope.inputObj.calendar3Class : 'cal-color-blue';
+            scope.calendar3Class = scope.inputObj.calendar3Class && scope.inputObj.calendar3Class.length > 0 ? scope.inputObj.calendar3Class : 'cal-color-blue';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar3Name && scope.inputObj.calendar3Name.length > 0,
+              class: scope.calendar3Class,
+              name: scope.inputObj.calendar3Name
+            });
           }
 
           // calendar4
           scope.calendar4 = [];
           if (scope.inputObj.calendar4 && scope.inputObj.calendar4 instanceof Array) {
             scope.calendar4 = scope.inputObj.calendar4;
-            scope.calendar4Class = scope.inputObj.calendar4Class ? scope.inputObj.calendar4Class : 'cal-color-orange';
+            scope.calendar4Class = scope.inputObj.calendar4Class && scope.inputObj.calendar4Class.length > 0 ? scope.inputObj.calendar4Class : 'cal-color-orange';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar4Name && scope.inputObj.calendar4Name.length > 0,
+              class: scope.calendar4Class,
+              name: scope.inputObj.calendar4Name
+            });
           }
 
           // calendar5
           scope.calendar5 = [];
           if (scope.inputObj.calendar5 && scope.inputObj.calendar5 instanceof Array) {
             scope.calendar5 = scope.inputObj.calendar5;
-            scope.calendar5Class = scope.inputObj.calendar5Class ? scope.inputObj.calendar5Class : 'cal-color-ggreen';
+            scope.calendar5Class = scope.inputObj.calendar5Class && scope.inputObj.calendar5Class.length > 0 ? scope.inputObj.calendar5Class : 'cal-color-ggreen';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar5Name && scope.inputObj.calendar5Name.length > 0,
+              class: scope.calendar5Class,
+              name: scope.inputObj.calendar5Name
+            });
           }
 
           // calendar6
           scope.calendar6 = [];
           if (scope.inputObj.calendar6 && scope.inputObj.calendar6 instanceof Array) {
             scope.calendar6 = scope.inputObj.calendar6;
-            scope.calendar6Class = scope.inputObj.calendar6Class ? scope.inputObj.calendar6Class : 'cal-color-saha';
+            scope.calendar6Class = scope.inputObj.calendar6Class && scope.inputObj.calendar6Class.length > 0 ? scope.inputObj.calendar6Class : 'cal-color-saha';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar6Name && scope.inputObj.calendar6Name.length > 0,
+              class: scope.calendar6Class,
+              name: scope.inputObj.calendar6Name
+            });
           }
 
           // calendar7
           scope.calendar7 = [];
           if (scope.inputObj.calendar7 && scope.inputObj.calendar7 instanceof Array) {
             scope.calendar7 = scope.inputObj.calendar7;
-            scope.calendar7Class = scope.inputObj.calendar7Class ? scope.inputObj.calendar7Class : 'cal-color-skyey';
+            scope.calendar7Class = scope.inputObj.calendar7Class && scope.inputObj.calendar7Class.length > 0 ? scope.inputObj.calendar7Class : 'cal-color-skyey';
+            scope.calendarNames.push({
+              isShow: scope.inputObj.calendar7Name && scope.inputObj.calendar7Name.length > 0,
+              class: scope.calendar7Class,
+              name: scope.inputObj.calendar7Name
+            });
+          }
+
+          scope.calendarNamesRows = [];
+          scope.calendarNamesCols = [0, 1];
+          scope.namesCount = 0;
+          for (var i = 0; i < scope.calendarNames.length; i++) {
+            if (scope.calendarNames[i].isShow) scope.namesCount++;
+            if (i % 2 === 0) {
+              scope.calendarNamesRows.push(i);
+            }
           }
 
           // methods:
@@ -599,9 +673,6 @@
 
           var lastDay = new Date(viewYear, viewMonth + 1, 0).getDate();
 
-          console.log('cal1');
-          console.log(scope.calendar1);
-
           scope.dayList.zero();
 
           // current month
@@ -741,25 +812,35 @@
 
         scope.prevMonth = function () {
           var date = monthShift(scope.viewYear, scope.viewMonth, '-');
-          scope.viewYear = date.year;
-          scope.viewMonth = date.month;
+          if (scope.fromYearMonth === undefined || date.year * 100 + date.month >= scope.fromYearMonth) {
+            scope.viewYear = date.year;
+            scope.viewMonth = date.month;
 
-          refreshDateList();
+            refreshDateList();
+          }
         };
 
         scope.nextMonth = function () {
           var date = monthShift(scope.viewYear, scope.viewMonth, '+');
-          scope.viewYear = date.year;
-          scope.viewMonth = date.month;
-
-          refreshDateList();
+          if (scope.toYearMonth === undefined || date.year * 100 + date.month <= scope.toYearMonth) {
+            scope.viewYear = date.year;
+            scope.viewMonth = date.month;
+            refreshDateList();
+          }
         };
 
         scope.monthYearSelect = function () {
-          scope.viewYear = scope.monthYear.select.getFullYear();
-          scope.viewMonth = scope.monthYear.select.getMonth();
+          var year = scope.monthYear.select.getFullYear();
+          var month = scope.monthYear.select.getMonth();
+          if ((scope.toYearMonth === undefined || year * 100 + month <= scope.toYearMonth) && (scope.fromYearMonth === undefined || year * 100 + month >= scope.fromYearMonth)) {
 
-          refreshDateList();
+            scope.viewYear = year;
+            scope.viewMonth = month;
+
+            refreshDateList();
+          } else {
+
+          }
         };
 
         // date-cell onTap:

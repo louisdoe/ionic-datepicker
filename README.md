@@ -11,11 +11,11 @@ and fully rewrited.
 
 ##Screenshots:
 
-![ios popup](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-ios-2.jpg)
-![ios popup dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-ios.jpg)
+![ios popup](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-ios-2.jpg)
+![ios popup dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-ios.jpg)
 
-![android modal](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-android-2.jpg)
-![android modal dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-android.jpg)
+![android modal](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android-2.jpg)
+![android modal dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android.jpg)
 
 ##Video:
 [YouTube](https://youtu.be/RxW628a9U-M)
@@ -77,25 +77,37 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
       tglSelectByWeekClass: 'toggle-positive', // true | false (default)
       titleSelectByWeekClass: 'positive positive-border', // true | false (default)
       accessType: 'WRITE', // READ | WRITE
+      showErrors: true, // true (default), false
       errorLanguage: 'RU', // EN | RU
+      fromDate: new Date(2015, 9),
+      toDate: new Date(2016, 1),
       selectedDates: $scope.selectedDates,
       viewMonth: $scope.selectedDates, 
       disabledDates: disabledDates,
       holidays: holidays,
+      holidaysClass: '',
+      holidaysName: 'holidays',
       calendar1: holidays,
       calendar1Class: '',
+      calendar1Name: 'same days',
       calendar2: calendar,
       calendar2Class: '',
+      calendar2Name: 'same days',
       calendar3: calendar,
       calendar3Class: '',
+      calendar3Name: 'same days',
       calendar4: calendar,
       calendar4Class: 'cal-color-black',
+      calendar4Name: 'same days',
       calendar5: calendar,
       calendar5Class: '',
+      calendar5Name: 'same days',
       calendar6: calendar,
       calendar6Class: '',
+      calendar6Name: 'same days',
       calendar7: calendar,
       calendar7Class: '',
+      calendar7Name: 'same days',
       conflictSelectedDisabled: 'DISABLED', // SELECTED | DISABLED
       closeOnSelect: false,
       mondayFirst: true,
@@ -157,35 +169,43 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **23. accessType** - READ | WRITE. Default - `WRITE`.
 
-**24. errorLanguage** - language of user errors. EN | RU. Default `EN`.
+**24. showErrors** - true (default), false.
 
-**25. selectedDates** - array with javascript dates.
+**25. errorLanguage** - language of user errors. EN | RU. Default `EN`.
 
-**26. viewMonth** - first viewed month. Default: current or nearest next month with date.
+**26. (new) fromDate: new Date(2015, 9),
 
-**27. disabledDates** - array with javascript dates of disabled dates.
+**27. (new) toDate: new Date(2016, 1),
 
-**28. holidays** - javascript array with holidays
+**28. selectedDates** - array with javascript dates.
 
-**29. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
+**29. viewMonth** - first viewed month. Default: current or nearest next month with date.
 
-![cal1-cal7](https://github.com/DenniLa2/ionic-datepicker/blob/master/src/imdp-calendars.jpg)
+**30. disabledDates** - array with javascript dates of disabled dates.
 
-1-7 - calendars, 8 - holidays.
+**31. holidays** - javascript array with holidays
 
-**30. (new) calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
+**32. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
 
-**31. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
+![cal1-cal7](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-calendarNames.jpg)
 
-**32. closeOnSelect** - default false.
+0 - holidays, 1-7 - calendars.
 
-**33. mondayFirst** - default true,
+**33. (new) holidaysClass, calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
 
-**34. weekDaysList**
+**34. (new) holidaysName, calendar1Name - calendar7Name** - shown names of custom calendars in calendar-convention section. If all names are empty - calendar-convention section is hidden. 
 
-**35. monthList**
+**35. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
 
-**36. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
+**36. closeOnSelect** - default false.
+
+**37. mondayFirst** - default true,
+
+**38. weekDaysList**
+
+**39. monthList**
+
+**40. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
 ````javascript
     var retSelectedDates = function (dates) {
       $scope.selectedDates.length = 0;
@@ -217,6 +237,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 1.2.3 - title of tglSelectByWeek.
 
 1.2.4 - fix.
+
+1.2.5 - added 'fromDate' and 'toDate', holidaysClass, calendars names and calendar-convention section.
 
 ##Contact:
 gmail : dennila2@gmail.com
