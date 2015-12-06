@@ -331,7 +331,8 @@ $CIRCLE-D: 25px;
     width: $CIRCLE-D;
     height: $CIRCLE-D;
     border-radius: 50%;
-    border: 1px solid $MDP-GRAY;}
+    border: 1px solid $MDP-GRAY;
+  }
 
   .selected, .selected-light {
     color: $MDP-WHITE !important;
@@ -385,7 +386,7 @@ $CIRCLE-D: 25px;
     position: relative;
     max-width: 260px;
     height: 87px;
-    margin:0 auto;
+    margin: 0 auto;
 
     .calendars-point {
       width: 29px;
@@ -408,18 +409,21 @@ $CIRCLE-D: 25px;
     .calendars-point-today:before {
       border: 2px solid $MDP-SKYEY;
     }
-    .calendars-point-selected:before {
-      background-color: $MDP-CORAL;
+    .calendars-point-selected {
+      color: $MDP-WHITE;
+      &:before {
+        background-color: $MDP-CORAL;
+      }
     }
-    .calendars-point-disabled:before {
-      //border: 1px solid $MDP-GRAY;
-      background-color: $MDP-DISABLED-BG;
+    .calendars-point-disabled {
+      color: $MDP-DISABLED;
+      &:before {
+        background-color: $MDP-DISABLED-BG;
+      }
     }
     .calendars-point-contour:before {
       border: 1px solid $MDP-GRAY;
-      //background-color: transparent;
     }
-
 
     .holiday-name, .calendar-1-name, .calendar-2-name, .calendar-3-name,
     .calendar-4-name, .calendar-5-name, .calendar-6-name, .calendar-7-name {

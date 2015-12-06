@@ -11,12 +11,12 @@ and fully rewrited.
 
 ##Screenshots:
 
-![ios popup](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-ios-2.jpg)
-![ios popup dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-ios.jpg)
+![ios popup](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android.jpg)
+![ios popup dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-calendarNames.jpg)
 
-![android modal](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android-2.jpg)
-![android modal dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-android.jpg)
-![calendar-convention section and "select by week" mode](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-calendarNames.jpg)
+![android modal](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-ios-2.jpg)
+![android modal dateselector](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/mdp-ios-name-convention.jpg)
+![calendar-convention section and "select by week" mode](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/mdp-ios-year-month-select.jpg)
 
 ##Video:
 [YouTube](https://youtu.be/RxW628a9U-M)
@@ -245,9 +245,11 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 1.2.7 - added: on-hold - day details.
 
+1.2.8 - fix css.
+
 ##Contact:
 gmail: dennila2@gmail.com
 
 github: https://github.com/dennila2
 
-Comment and / or Rate it : http://market.ionic.io/plugins/ionic-multi-date-picker
+Comment and Rate it : http://market.ionic.io/plugins/ionic-multi-date-picker
