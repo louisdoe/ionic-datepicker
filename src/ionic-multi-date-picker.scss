@@ -28,19 +28,19 @@ $CIRCLE-D: 25px;
   }
 }
 
-.cal-color-orange {
+.cal-color-orange, .cal-color-4 {
   &:before {
     background-color: $MDP-ORANGE;
   }
 }
 
-.cal-color-violet {
+.cal-color-violet, .cal-color-2 {
   &:before {
     background-color: $MDP-VIOLET;
   }
 }
 
-.cal-color-saha {
+.cal-color-saha, .cal-color-6 {
   &:before {
     background-color: $MDP-SAHA;
   }
@@ -52,13 +52,13 @@ $CIRCLE-D: 25px;
   }
 }
 
-.cal-color-blue {
+.cal-color-blue, .cal-color-3 {
   &:before {
     background-color: $MDP-BLUE;
   }
 }
 
-.cal-color-skyey {
+.cal-color-skyey, .cal-color-7 {
   &:before {
     background-color: $MDP-SKYEY;
   }
@@ -70,19 +70,19 @@ $CIRCLE-D: 25px;
   }
 }
 
-.cal-color-ggreen {
+.cal-color-ggreen, .cal-color-5 {
   &:before {
     background-color: $MDP-GGREEN;
   }
 }
 
-.cal-color-holiday {
+.cal-color-holiday, .cal-color-0 {
   &:before {
     background-color: $MDP-HOLIDAY;
   }
 }
 
-.cal-color-black {
+.cal-color-black, .cal-color-1 {
   &:before {
     background-color: $MDP-BLACK;
   }
@@ -200,22 +200,7 @@ $CIRCLE-D: 25px;
     color: $MDP-RED;
   }
 
-  /*.holiday {
-    &:before {
-      position: absolute;
-      content: '';
-      top: 3px;
-      left: 5px;
-      background-color: $MDP-HOLIDAY;
-      z-index: 0;
-      width: 8px;
-      height: 8px;
-      border: 2px solid $MDP-WHITE;
-      border-radius: 50%;
-    }
-  }*/
-
-  .holidays, .calendar-1, .calendar-2, .calendar-3, .calendar-4,
+  .calendar-0, .calendar-1, .calendar-2, .calendar-3, .calendar-4,
   .calendar-5, .calendar-6, .calendar-7 {
     position: absolute;
     top: 0;
@@ -232,7 +217,7 @@ $CIRCLE-D: 25px;
     }
   }
 
-  .holidays {
+  .calendar-0 {
     &:before {
       top: 3px;
       left: 5px;
@@ -425,14 +410,14 @@ $CIRCLE-D: 25px;
       border: 1px solid $MDP-GRAY;
     }
 
-    .holiday-name, .calendar-1-name, .calendar-2-name, .calendar-3-name,
+    .calendar-0-name, .calendar-1-name, .calendar-2-name, .calendar-3-name,
     .calendar-4-name, .calendar-5-name, .calendar-6-name, .calendar-7-name {
       position: absolute;
       width: 40%;
       text-align: center;
     }
 
-    .holiday-name {
+    .calendar-0-name {
       top: 16px;
       left: 5px;
     }
@@ -465,7 +450,7 @@ $CIRCLE-D: 25px;
       left: 0;
     }
 
-    .holiday-point, .calendar-1-point, .calendar-2-point, .calendar-3-point,
+    .calendar-0-point, .calendar-1-point, .calendar-2-point, .calendar-3-point,
     .calendar-4-point, .calendar-5-point, .calendar-6-point, .calendar-7-point {
       position: absolute;
       color: transparent;
@@ -480,7 +465,7 @@ $CIRCLE-D: 25px;
       }
     }
 
-    .holiday-point {
+    .calendar-0-point {
       top: 20px;
       left: 100px;
     }
