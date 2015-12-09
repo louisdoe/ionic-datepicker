@@ -85,24 +85,24 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
       selectedDates: $scope.selectedDates,
       viewMonth: $scope.selectedDates, 
       disabledDates: disabledDates,
-      holidays: holidays,
-      holidaysClass: '',
-      holidaysName: 'holidays',
+      calendar0: holidays,
+      calendar0Class: '',
+      calendar0Name: 'holidays',
       calendar1: holidays,
       calendar1Class: '',
-      calendar1Name: 'same days',
+      calendar1Name: 'my days',
       calendar2: calendar,
       calendar2Class: '',
-      calendar2Name: 'same days',
+      calendar2Name: 'other days',
       calendar3: calendar,
       calendar3Class: '',
-      calendar3Name: 'same days',
+      calendar3Name: 'red days',
       calendar4: calendar,
       calendar4Class: 'cal-color-black',
-      calendar4Name: 'same days',
+      calendar4Name: 'vacations',
       calendar5: calendar,
       calendar5Class: '',
-      calendar5Name: 'same days',
+      calendar5Name: 'etc days',
       calendar6: calendar,
       calendar6Class: '',
       calendar6Name: 'same days',
@@ -156,17 +156,17 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **16. selectType** - SINGLE - one date per calendar, PERIOD  - continuous date period, MULTI - random dates. Default `MULTI`.
 
-**17. (new) tglSelectByWeekShow** - 'select by week' toggle, Default false.
+**17. tglSelectByWeekShow** - 'select by week' toggle, Default false.
 
-**18. (new) tglSelectByWeek** - title.
+**18. tglSelectByWeek** - title.
 
-**19. (new) isSelectByWeek** - start value, default true.
+**19. isSelectByWeek** - start value, default true.
 
-**20. (new) selectByWeekMode** - INVERSION (default), NORMAL.
+**20. selectByWeekMode** - INVERSION (default), NORMAL.
 
-**21. (new) tglSelectByWeekClass** - ionic css classes.
+**21. tglSelectByWeekClass** - ionic css classes.
 
-**22. (new) titleSelectByWeekClass** - ionic css classes.
+**22. titleSelectByWeekClass** - ionic css classes.
 
 **23. accessType** - READ | WRITE. Default - `WRITE`.
 
@@ -174,9 +174,9 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **25. errorLanguage** - language of user errors. EN | RU. Default `EN`.
 
-**26. (new) fromDate:** new Date(2015, 9),
+**26. fromDate:** new Date(2015, 9),
 
-**27. (new) toDate:** new Date(2016, 1),
+**27. toDate:** new Date(2016, 1),
 
 **28. selectedDates** - array with javascript dates.
 
@@ -184,29 +184,25 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 
 **30. disabledDates** - array with javascript dates of disabled dates.
 
-**31. holidays** - javascript array with holidays
+**31. calendar0 - calendar7** - named arrays with javascript dates, where the number is only fixed position around date.
 
-**32. (new) calendar1 - calendar7** - some js date-arrays as holydays, where the number is only fixed position around date.
+![cal0-cal7](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-calendarNames.jpg)
 
-![cal1-cal7](https://github.com/DenniLa2/ionic-datepicker/blob/master/images/imdp-calendarNames.jpg)
+**32. calendar0Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
 
-0 - holidays, 1-7 - calendars.
+**33. holidaysName, calendar1Name - calendar7Name** - shown names of custom calendars in calendar-convention section. If all names are empty - calendar-convention section is hidden. 
 
-**33. (new) holidaysClass, calendar1Class - calendar7Class** - classes to customise. Availables classes: cal-color-red, cal-color-yellow, cal-color-orange, cal-color-violet, cal-color-saha, cal-color-coral, cal-color-blue, cal-color-skyey, cal-color-green, cal-color-ggreen, cal-color-holiday, cal-color-black.
+**34. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
 
-**34. (new) holidaysName, calendar1Name - calendar7Name** - shown names of custom calendars in calendar-convention section. If all names are empty - calendar-convention section is hidden. 
+**35. closeOnSelect** - default false.
 
-**35. conflictSelectedDisabled** - if selecled dates and disabled dates have the same date - one of them will deleted. `SELECTED` - selected date will store, disabled - deleted. `DISABLED` - disabled date will store, selected - deleted. Default `DISABLED`. 
+**36. mondayFirst** - default true,
 
-**36. closeOnSelect** - default false.
+**37. weekDaysList**
 
-**37. mondayFirst** - default true,
+**38. monthList**
 
-**38. weekDaysList**
-
-**39. monthList**
-
-**40. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
+**39. callback**(Mandatory) - This the callback function, which will get array of the selected dates in to the controller. You can define this function as follows.
 ````javascript
     var retSelectedDates = function (dates) {
       $scope.selectedDates.length = 0;
@@ -246,6 +242,8 @@ angular.module('mainModuleName', ['ionic', 'ionic-multi-date-picker']){
 1.2.7 - added: on-hold - day details.
 
 1.2.8 - fix css.
+
+2.0.0 - refactoring. Holiday calendar renamed to calendar0.
 
 ##Contact:
 gmail: dennila2@gmail.com
