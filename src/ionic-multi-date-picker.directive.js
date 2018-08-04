@@ -65,6 +65,7 @@
           initBtns();
           setViewMonth();
           refreshDateList();
+          defineIndeterminateToggle();
         }
 
         initModal();
@@ -596,7 +597,7 @@
         }
 
         function refreshDateList() {
-
+          
           var today = new Date();
           var viewYear = scope.viewYear;
           var viewMonth = scope.viewMonth;
@@ -732,6 +733,15 @@
 
         }
 
+        function defineIndeterminateToggle() {
+          console.log('refreshDateList is launched and scope.selectedDates.length = ', scope.selectedDates.length)
+          if (scope.selectedDates.length > 1) {
+            scope.indeterminatePeriod.is = false;
+          } else {
+            scope.indeterminatePeriod.is = true; 
+          }
+        }
+
         scope.prevMonth = function () {
           var date = monthShift(scope.viewYear, scope.viewMonth, '-');
           if (scope.fromYearMonth === undefined || date.year * 100 + date.month >= scope.fromYearMonth) {
@@ -771,11 +781,11 @@
           if (scope.indeterminatePeriod.is && scope.selectedDates.length >= 2){
             console.log("on doit supprimer");
             // only keep earliest date
-            console.log(scope.selectedDates)
             while (scope.selectedDates.length > 1) {
               scope.selectedDates.splice(scope.selectedDates.length-1,1);
             }
             scope.dayList.repaint();
+            console.log('scope.selectedDates.length = ', scope.selectedDates.length)
           }
         };
 
@@ -801,7 +811,7 @@
             } else {
               scope.indeterminatePeriod.is = true;
             }
-            
+            console.log('scope.selectedDates.length = ',scope.selectedDates.length)
 
             if (scope.closeOnSelect) {
               btnOk();
