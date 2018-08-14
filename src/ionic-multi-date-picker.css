@@ -23,7 +23,7 @@
   background-color: #53a7ff; }
 
 .cal-color-green:before {
-  background-color: #9bd659; }
+  background-color: #30a75d; }
 
 .cal-color-ggreen:before, .cal-color-5:before {
   background-color: #00d66c; }
@@ -33,6 +33,11 @@
 
 .cal-color-black:before, .cal-color-1:before {
   background-color: black; }
+
+.custom-button-center {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%); }
 
 .picker-body {
   height: inherit; }
@@ -44,10 +49,10 @@
     padding: 0; }
 
 .cal-green {
-  color: #9bd659 !important; }
+  color: #30a75d !important; }
 
 .cal-green-bg {
-  background-color: #9bd659;
+  background-color: #30a75d;
   z-index: -2; }
 
 .ionic-datepicker {
@@ -60,7 +65,7 @@
   .ionic-datepicker .clear {
     clear: both; }
   .ionic-datepicker .title {
-    color: #3a81c5; }
+    color: white; }
     .ionic-datepicker .title h3 {
       font-size: 2em;
       text-align: center !important;
@@ -73,9 +78,20 @@
       margin: 0;
       padding: 5px;
       width: 100%; }
+  .ionic-datepicker .instruction {
+    display: table;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px; }
+  .ionic-datepicker .instruction span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px; }
   .ionic-datepicker .navigator {
-    background-color: #3a81c5;
+    background-color: white;
     min-height: 50px; }
+  .ionic-datepicker .navigator .button-icon.icon:before {
+    font-size: 22px; }
   .ionic-datepicker .icon-chevron {
     position: relative; }
   .ionic-datepicker .icon-chevron:before {
@@ -92,6 +108,7 @@
   .ionic-datepicker .icon-chevron-right:before {
     left: -25px; }
   .ionic-datepicker .month-year-selector {
+    display: none;
     position: fixed;
     right: 60px;
     top: 0;
@@ -324,9 +341,10 @@
   .ionic-datepicker .tgl-period div {
     margin: 0; }
   .ionic-datepicker .view-month {
-    color: white;
-    padding: 14px;
-    font-size: 16px; }
+    color: black;
+    font-size: 16px;
+    line-height: 57px;
+    padding: 0; }
   .ionic-datepicker .pointer_events_none {
     pointer-events: none !important; }
   .ionic-datepicker .select_section {
@@ -363,6 +381,10 @@
   .ionic_datepicker_modal_content .cal-button {
     padding: 0 !important;
     font-size: 14px !important; }
+
+.bar-footer .row .button {
+  margin-left: 10px;
+  font-size: 16px; }
 
 @media (min-width: 680px) {
   .ionic_datepicker_modal_content {

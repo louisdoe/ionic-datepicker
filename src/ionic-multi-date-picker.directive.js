@@ -124,13 +124,13 @@
           };
 
           scope.header = (scope.inputObj.header && scope.inputObj.header.length > 0) ? scope.inputObj.header : '';
-          if (scope.templateType === TEMPLATE_TYPE.MODAL && scope.header === '') scope.header = 'Datepicker';
+          if (scope.templateType === TEMPLATE_TYPE.MODAL && scope.header === '') scope.header = 'Dates';
           scope.headerClass = scope.inputObj.headerClass;
 
           scope.btnsIsNative = !!scope.inputObj.btnsIsNative;
 
           scope.btnOk = scope.inputObj.btnOk ? scope.inputObj.btnOk : 'Ok';
-          scope.btnOkClass = scope.inputObj.btnOkClass ? scope.inputObj.btnOkClass : 'button-stable cal-button';
+          scope.btnOkClass = scope.inputObj.btnOkClass ? scope.inputObj.btnOkClass : 'button-balanced button-outline';
 
           scope.btnCancel = scope.inputObj.btnCancel ? scope.inputObj.btnCancel : 'Close';
           scope.btnCancelClass = scope.inputObj.btnCancelClass ? scope.inputObj.btnCancelClass : 'button-stable cal-button';
@@ -183,7 +183,7 @@
 
           scope.closeOnSelect = !!scope.inputObj.closeOnSelect;
 
-          scope.modalFooterClass = scope.inputObj.modalFooterClass ? scope.inputObj.modalFooterClass : 'bar-light';
+          scope.modalFooterClass = scope.inputObj.modalFooterClass ? scope.inputObj.modalFooterClass : 'bar-clear';
 
           // Setting the months list. This is useful, if the component needs to use some other language.
           scope.monthsList = [];
@@ -734,7 +734,7 @@
         }
 
         function defineIndeterminateToggle() {
-          console.log('refreshDateList is launched and scope.selectedDates.length = ', scope.selectedDates.length)
+          // console.log('refreshDateList is launched and scope.selectedDates.length = ', scope.selectedDates.length)
           if (scope.selectedDates.length > 1) {
             scope.indeterminatePeriod.is = false;
           } else {
@@ -779,13 +779,13 @@
         scope.indeterminatePeriodChange = function(e){
           console.log("indeterminatePeriod.is =", scope.indeterminatePeriod.is);
           if (scope.indeterminatePeriod.is && scope.selectedDates.length >= 2){
-            console.log("on doit supprimer");
+            // console.log("on doit supprimer");
             // only keep earliest date
             while (scope.selectedDates.length > 1) {
               scope.selectedDates.splice(scope.selectedDates.length-1,1);
             }
             scope.dayList.repaint();
-            console.log('scope.selectedDates.length = ', scope.selectedDates.length)
+            // console.log('scope.selectedDates.length = ', scope.selectedDates.length)
           }
         };
 
@@ -811,7 +811,7 @@
             } else {
               scope.indeterminatePeriod.is = true;
             }
-            console.log('scope.selectedDates.length = ',scope.selectedDates.length)
+            // console.log('scope.selectedDates.length = ',scope.selectedDates.length)
 
             if (scope.closeOnSelect) {
               btnOk();
@@ -885,11 +885,11 @@
         }
 
         function btnOk() {
-          scope.inputObj.callback(scope.selectedDates);
+          scope.inputObj.callback(scope.selectedDates, scope.indeterminatePeriod.is);
         }
 
         function btnCancel() {
-          scope.inputObj.callback(scope.inputDates);
+          scope.inputObj.callback(scope.inputDates, scope.indeterminatePeriod.is);
         }
 
         function btnClear() {

@@ -6,7 +6,7 @@ $MDP-SAHA: rgb(159, 0, 246);
 $MDP-CORAL: rgb(255, 133, 121);
 $MDP-BLUE: rgb(58, 129, 197);
 $MDP-SKYEY: rgb(83, 167, 255);
-$MDP-GREEN: rgb(155, 214, 89);
+$MDP-GREEN: rgb(48,167,93);
 $MDP-GGREEN: rgb(0, 214, 108);
 $MDP-WHITE: rgb(255, 255, 255);
 $MDP-GRAY: rgb(204, 204, 204);
@@ -88,6 +88,12 @@ $CIRCLE-D: 25px;
   }
 }
 
+.custom-button-center {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%)
+}
+
 .picker-body {
 
   height: inherit;
@@ -125,7 +131,7 @@ $CIRCLE-D: 25px;
 
   .title {
 
-    color: $MDP-BLUE;
+    color: $MDP-WHITE;
 
     h3 {
       font-size: 2em;
@@ -143,10 +149,24 @@ $CIRCLE-D: 25px;
       width: 100%;
     }
   }
-
+  .instruction {
+    display: table;
+    height: 30px;
+    line-height: 30px;
+    // text-align: center;
+    margin-bottom: 5px;
+  } 
+  .instruction span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+  } 
   .navigator {
-    background-color: $MDP-BLUE;
+    background-color: $MDP-WHITE;
     min-height: 50px;
+  }
+  .navigator .button-icon.icon:before {
+    font-size: 22px;
   }
 
   .icon-chevron {
@@ -172,6 +192,7 @@ $CIRCLE-D: 25px;
   }
 
   .month-year-selector {
+    display: none;
     position: fixed;
     right: 60px;
     top: 0;
@@ -513,9 +534,11 @@ $CIRCLE-D: 25px;
   }
 
   .view-month {
-    color: $MDP-WHITE;
-    padding: 14px;
+    color: $MDP-BLACK;
+    // padding: 14px;
     font-size: 16px;
+    line-height: 57px;
+    padding: 0;
   }
 
   .pointer_events_none {
@@ -577,6 +600,11 @@ $CIRCLE-D: 25px;
     padding: 0 !important;
     font-size: 14px !important;
   }
+}
+
+.bar-footer .row .button {
+  margin-left: 10px;
+  font-size: 16px;
 }
 
 @media (min-width: 680px) {

@@ -1,25 +1,33 @@
+<div class="instruction row no-padding text-center">
+  <span>Sélectionnez les dates de début et de fin :</span>
+</div>
+
 <div class="navigator row no-padding">
-  <div class="col col-10 left-arrow" ng-click="prevMonth()">
+  <div class="col col-20 left-arrow" ng-click="prevMonth()">
     <!-- <button class="button-clear">
       <i class="icon icon-chevron icon-chevron-left ion-chevron-left"></i>
     </button> -->
-    <a class="button button-icon button-light icon ion-chevron-left"></a>
+    <a class="button button-icon icon ion-chevron-left button-clear button-balanced"></a>
   </div>
-  <div class="col col-70 view-month text-center">
+  <div class="col col-60 view-month text-center">
     {{ monthsList[viewMonth] }} {{ viewYear }}
   </div>
-  <div class="col col-10" ng-click="nextMonth()">
+  <div class="col col-20" ng-click="nextMonth()">
     <!-- <button class="button-clear">
       <i class="icon icon-arrow-forward icon-chevron-right ion-chevron-right"></i>
     </button> -->
     <!-- <button class="button icon ion-chevron-right"></button> -->
-    <a class="button button-icon button-light icon ion-chevron-right"></a>
+    <a class="button button-icon icon ion-chevron-right button-clear button-balanced"></a>
   </div>
 </div>
 
 <label class="month-year-selector item item-input">
   <input type="month" ng-model="monthYear.select" ng-change="monthYearSelect()">
 </label>
+
+<button class="button ng-binding button-clear button-balanced custom-button-center" ng-click="callBtnToday()" ng-class="btn.type">
+  Aujourd'hui
+</button>
 
 <div class="calendar-grid">
   <div class="row">
@@ -152,15 +160,15 @@
 
 <!-- <div class="row no-padding"> -->
   <!-- <div class="col col-50"> -->
-    <button class="button ng-binding button-clear button-dark" ng-click="callBtnToday()" ng-class="btn.type">
+    <!-- <button class="button ng-binding button-clear button-dark" ng-click="callBtnToday()" ng-class="btn.type">
       Aujourd'hui
-    </button>
+    </button> -->
   <!-- </div> -->
   <!-- <div class="col col-50"> -->
     <div class="tgl-indeterminate-period ng-hide" ng-show="tglIndeterminatePeriodShow && accessType == 'WRITE' && selectType != 'SINGLE'">
       <div class="item item-toggle" ng-class="titleIndeterminatePeriodClass">
         {{ tglIndeterminatePeriod }}
-        <label class="toggle" ng-class="tglIndeterminatePeriodClass">
+        <label class="toggle toggle-balanced" ng-class="tglIndeterminatePeriodClass">
           <input type="checkbox" ng-model="indeterminatePeriod.is" ng-change="indeterminatePeriodChange($event)">
 
           <div class="track">
