@@ -132,8 +132,11 @@
           scope.btnOk = scope.inputObj.btnOk ? scope.inputObj.btnOk : 'Ok';
           scope.btnOkClass = scope.inputObj.btnOkClass ? scope.inputObj.btnOkClass : 'button-balanced button-outline';
 
-          scope.btnCancel = scope.inputObj.btnCancel ? scope.inputObj.btnCancel : 'Close';
-          scope.btnCancelClass = scope.inputObj.btnCancelClass ? scope.inputObj.btnCancelClass : 'button-stable cal-button';
+          scope.btnCancelShow = !!scope.inputObj.btnCancelShow;
+          if (scope.btnCancelShow) {
+            scope.btnCancel = scope.inputObj.btnCancel ? scope.inputObj.btnCancel : 'Close';
+            scope.btnCancelClass = scope.inputObj.btnCancelClass ? scope.inputObj.btnCancelClass : 'button-stable cal-button';
+          }
 
           scope.btnTodayShow = !!scope.inputObj.btnTodayShow;
           if (scope.btnTodayShow) {
@@ -544,21 +547,23 @@
             });
           }
 
-          scope.btns.push({
-            text: scope.btnCancel,
-            type: scope.btnCancelClass,
-            sType: 'cancel',
-            onClickModal: function () {
-              btnCancel();
-              scope.closeModal();
-            },
-            onTap: function () {
-              btnCancel();
-              if (!scope.btnsIsNative) {
-                scope.popup.close();
+          if (scope.btnCancelShow) {
+            scope.btns.push({
+              text: scope.btnCancel,
+              type: scope.btnCancelClass,
+              sType: 'cancel',
+              onClickModal: function () {
+                btnCancel();
+                scope.closeModal();
+              },
+              onTap: function () {
+                btnCancel();
+                if (!scope.btnsIsNative) {
+                  scope.popup.close();
+                }
               }
-            }
-          });
+            });
+          }
 
           if (scope.accessType === ACCESS_TYPE.WRITE) {
             scope.btns.push({
@@ -749,6 +754,8 @@
             scope.viewMonth = date.month;
 
             refreshDateList();
+          } else {
+            // alert("Veuillez selectionner une date future");
           }
         };
 

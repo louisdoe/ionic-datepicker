@@ -15,13 +15,21 @@
   <ion-footer-bar ng-class="modalFooterClass">
     <div class="row no-padding btns-right-modal">
       <button class="button"
-              ng-repeat="btn in btns"
-              ng-click="btn.onClickModal()"
-              ng-disabled="btn.sType == 'ok' && errors.len > 0"
-              ng-class="btn.type">
+        ng-repeat="btn in btns"
+        ng-click="btn.onClickModal()"
+        ng-disabled="btn.sType == 'ok' && errors.len > 0"
+        ng-class="btn.type">
         {{ btn.text }}
       </button>
     </div>
   </ion-footer-bar>
+
+  <!-- <div class="bar bar-footer bar-balanced" 
+        ng-repeat="btn in btns"
+        ng-click="btn.onClickModal()"
+        ng-disabled="btn.sType == 'ok' && errors.len > 0"
+        ng-class="btn.type">
+    <div class="title ng-binding" hm-el="bar-title">VALIDER</div>
+  </div> -->
 
 </ion-modal-view>
