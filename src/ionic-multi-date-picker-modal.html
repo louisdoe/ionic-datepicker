@@ -1,18 +1,22 @@
 <ion-modal-view class="ionic-datepicker">
-  <ion-header-bar ng-class="headerClass">
+  <hm-title-bar title="'datepicker/dates'" back="back()"></hm-title-bar>
+
+  <!-- <ion-header-bar ng-class="headerClass">
     <a class="button button-icon icon ion-chevron-left icon-left" ng-click = "closeModal()"></a>
     <div class="title" ng-class="headerClass" ng-bind="header"></div>
-  </ion-header-bar>
-  <ion-content>
+  </ion-header-bar> -->
+
+  <ion-content class="has-header has-hm-button-footer overflow-scroll="true">
+
     <div>
-
       <ng-include src="'template-body.html'"></ng-include>
-
     </div>
 
   </ion-content>
 
-  <ion-footer-bar ng-class="modalFooterClass">
+  <hm-button-footer title="'btn_validate'" click="closeModal()"></hm-button-footer>
+
+  <!-- <ion-footer-bar ng-class="modalFooterClass">
     <div class="row no-padding btns-right-modal">
       <button class="button"
         ng-repeat="btn in btns"
@@ -22,7 +26,7 @@
         {{ btn.text }}
       </button>
     </div>
-  </ion-footer-bar>
+  </ion-footer-bar> -->
 
   <!-- <div class="bar bar-footer bar-balanced" 
         ng-repeat="btn in btns"

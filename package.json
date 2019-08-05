@@ -10,6 +10,7 @@
   "fork": "https://github.com/rajeshwarpatlolla, rajeshwar.patlolla@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "gulp-install": "^1.1.0",
     "gulp-minify-css": "^1.2.4"
   },
   "devDependencies": {

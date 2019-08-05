@@ -120,9 +120,15 @@ $CIRCLE-D: 25px;
 }
 
 .ionic-datepicker {
+
   background-color: $MDP-WHITE;
+  
   .no-padding {
     padding: 0;
+  }
+
+  h4 {
+    padding: 1rem;
   }
 
   .clear {
@@ -130,9 +136,7 @@ $CIRCLE-D: 25px;
   }
 
   .title {
-
     color: $MDP-WHITE;
-
     h3 {
       font-size: 2em;
       text-align: center !important;
