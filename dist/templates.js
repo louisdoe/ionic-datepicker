@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('ionic-multi-date-picker-modal.html',
-    '<ion-modal-view class=ionic-datepicker><hm-title-bar title="\'datepicker/dates\'" back=back()></hm-title-bar><ion-content class="has-header has-hm-button-footer overflow-scroll=" true"><div><ng-include src="\'template-body.html\'"></ng-include></div></ion-content><hm-button-footer title="\'btn_validate\'" click=closeModal()></hm-button-footer></ion-modal-view>');
+    '<ion-modal-view class=ionic-datepicker><hm-title-bar title="\'datepicker/dates\'" back=back()></hm-title-bar><ion-content class="has-header has-hm-button-footer overflow-scroll=" true"><div><ng-include src="\'template-body.html\'"></ng-include></div></ion-content><hm-button-footer title="\'btn_validate\'" click=btns ng-click=btnOkFunc();closeModal()></hm-button-footer></ion-modal-view>');
 }]);
 })();
 

@@ -571,11 +571,11 @@
               type: scope.btnOkClass,
               sType: 'ok',
               onClickModal: function () {
-                btnOk();
+                scope.btnOkFunc();
                 scope.closeModal();
               },
               onTap: function () {
-                btnOk();
+                scope.btnOkFunc();
                 if (!scope.btnsIsNative) {
                   scope.popup.close();
                 }
@@ -821,7 +821,7 @@
             // console.log('scope.selectedDates.length = ',scope.selectedDates.length)
 
             if (scope.closeOnSelect) {
-              btnOk();
+              scope.btnOkFunc();
               if (scope.templateType === TEMPLATE_TYPE.POPUP) {
                 $timeout(scope.popup.close, 300);
               } else {
@@ -891,7 +891,7 @@
           return {year: year, month: month};
         }
 
-        function btnOk() {
+        scope.btnOkFunc = function() {
           scope.inputObj.callback(scope.selectedDates, scope.indeterminatePeriod.is);
         }
 
